@@ -30,11 +30,12 @@ const Content = styled.div`
   max-height: 8rem;
   overflow: scroll;
 `
-const Card = ({content}) => {
+const Card = (props) => {
+  const { content, votes } = props;
   return (
     <article>
       <Header>
-        <span>Number of votes: </span>
+        <span>Number of votes: {votes}</span>
         <ThumbsUp>+1</ThumbsUp>
       </Header>
       <Content>
@@ -46,6 +47,7 @@ const Card = ({content}) => {
 
 Card.propTypes = {
   content: PropTypes.string.isRequired,
+  votes: PropTypes.number.isRequired,
 }
 
 export default Card

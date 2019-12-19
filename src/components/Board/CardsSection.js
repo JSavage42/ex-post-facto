@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import Card from './Card'
+import CardContainer from './CardContainer'
 
 const Section = styled.section`
   display: flex;
@@ -39,14 +39,16 @@ const Section = styled.section`
     font-size: 1.25rem;
     flex: 0 0 10rem;
     overflow: scroll;
+
+    article {
+      font-size: 1.25rem;
+      height: 10rem;
+      margin: 0.25rem;
+      width: 15rem;
+    }
+
   }
 
-  .card-container article {
-    font-size: 1.25rem;
-    height: 10rem;
-    margin: 0.25rem;
-    width: 15rem;
-  }
 
   .went-well .card-container article {
     background: green;
@@ -62,57 +64,47 @@ const Section = styled.section`
 `
 
 const CardsSection = ({
-  wentWellArray,
-  needsImproveArray,
-  actionItemsArray,
+  wentWellObj,
+  needsImproveObj,
+  actionItemsObj,
 }) => {
-  const isWentWell = wentWellArray && wentWellArray.length > 0;
-  const isNeedsImprove = needsImproveArray && needsImproveArray.length > 0;
-  const isActionItems = actionItemsArray && actionItemsArray.length > 0;
   return (
     <Section>
-      <section className="went-well">
-        <header>
-          <h2>Went Well</h2>
-          <button>+</button>
-        </header>
-        <article className="card-container">
-          {isWentWell && wentWellArray.map(card => (
-            <Card content={card} />
-          ))}
-        </article>
-      </section>
-      <section className="needs-improve">
-        <header>
-          <h2>Needs Improvement</h2>
-          <button>+</button>
-        </header>
-        <article className="card-container">
-          {isNeedsImprove && needsImproveArray.map(card => (
-            <Card content={card} />
-          ))}
-        </article>
-      </section>
-      <section className="action-items">
-        <header>
-          <h2>Action Items</h2>
-          <button>+</button>
-        </header>
-        <article className="card-container">
-          {isActionItems && actionItemsArray.map(card => (
-            <Card content={card} />
-          ))}
-        </article>
-      </section>
+      <CardContainer
+        title="Went Well"
+        cardObj={wentWellObj}
+        type={CardContainer.Variants.WENT_WELL}
+      />
+      <CardContainer
+        title="Needs Improvement"
+        cardObj={needsImproveObj}
+        type={CardContainer.Variants.NEEDS_IMPROVE}
+      />
+      <CardContainer
+        title="Action Items"
+        cardObj={actionItemsObj}
+        type={CardContainer.Variants.ACTION_ITEMS}
+      />
     </Section>
   )
 }
 
 CardsSection.propTypes = {
-  children: PropTypes.node,
-  wentWellArray: PropTypes.arrayOf(PropTypes.node).isRequired,
-  needsImproveArray: PropTypes.arrayOf(PropTypes.node).isRequired,
-  actionItemsArray: PropTypes.arrayOf(PropTypes.node).isRequired,
+  wentWellArray: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    content: PropTypes.string.isRequired,
+    votes: PropTypes.number.isRequired,
+  }).isRequired),
+  needsImproveArray: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    content: PropTypes.string.isRequired,
+    votes: PropTypes.number.isRequired,
+  }).isRequired),
+  actionItemsArray: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    content: PropTypes.string.isRequired,
+    votes: PropTypes.number.isRequired,
+  }).isRequired),
 }
 
 export default CardsSection
