@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Input from './styled/Input'
 import Button from './Button'
 import styled from 'styled-components'
@@ -10,7 +9,7 @@ const Form = styled.form`
   padding: 0 2rem;
 `
 
-const Login = props => {
+const Login = () => {
   const isLogingIn = false;
   return (
     <Form>
@@ -18,27 +17,21 @@ const Login = props => {
         <Input placeholder="Username" />
         <Input type="password" placeholder="Password" />
       </fieldset>
-      <fieldset>
-        <Button
-          type="submit"
-          title={isLogingIn ? 'Logging in...' : 'Login'}
-          onClick={() => { }}
-          variant="emphasis login"
-        />
-        <Button
-          disabled={isLogingIn}
-          type="reset"
-          title="Reset"
-          onClick={() => { }}
-          variant="neutral reset"
-        />
-      </fieldset>
+      <Button
+        type="submit"
+        title={isLogingIn ? 'Logging in...' : 'Login'}
+        onClick={() => { }}
+        variant="emphasis login"
+      />
+      <Button
+        disabled={isLogingIn}
+        type="reset"
+        title="Reset"
+        onClick={() => { }}
+        variant="neutral reset"
+      />
     </Form>
   )
-}
-
-Login.propTypes = {
-
 }
 
 export default Login

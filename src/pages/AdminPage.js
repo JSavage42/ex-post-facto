@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import Login from '../components/Login'
@@ -33,10 +32,6 @@ const LandingPage = props => {
       <Login className="login" />
     </Main>
   )
-}
-
-LandingPage.propTypes = {
-
 }
 
 export default LandingPage

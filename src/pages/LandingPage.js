@@ -1,17 +1,17 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import Login from '../components/Login'
 
 const Main = styled.main`
-  color: #e2e2e2;
+  color: #2f2f2f;
   display: flex;
+  height: 100%;
   margin: 0 auto;
   width: 100vw;
 
   h1 {
-    font-size: 5rem;
+    font-size: 8rem;
     text-align: center;
   }
 
@@ -20,10 +20,12 @@ const Main = styled.main`
   }
 
   div.title {
-    flex: 1 75%;
-    align-self: center;
-    padding: 0 4rem;
+    align-items: center;
     border-right: 2px solid white;
+    display: flex;
+    flex: 1 75%;
+    justify-content: center;
+    padding: 0 4rem;
   }
 `
 
@@ -36,10 +38,6 @@ const LandingPage = props => {
       <Login />
     </Main>
   )
-}
-
-LandingPage.propTypes = {
-
 }
 
 export default LandingPage

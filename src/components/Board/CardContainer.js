@@ -9,7 +9,14 @@ const CardContainerEnum = Object.freeze({
 })
 
 const CardContainer = (props) => {
-  const { type, title, cardObj } = props;
+  const {
+    type,
+    title,
+    cardObj,
+    handleAddCard,
+    bid,
+    updateContent,
+  } = props;
   const card = [];
   if (cardObj !== null) {
     Object.values(cardObj).forEach(value =>
@@ -20,12 +27,20 @@ const CardContainer = (props) => {
     <section className={type}>
       <header>
         <h2>{title}</h2>
-        <button>+</button>
+        <button onClick={() => handleAddCard(type)}>Add</button>
       </header>
       <article className="card-container">
-        {card.length !== 0 && card.map(({ content, votes}) => {
+        {card.length !== 0 && card.map(({ content, votes, id }) => {
           return (
-            <Card content={content} votes={votes} key={`card-${content}`}/>
+            <Card
+              bid={bid}
+              type={type}
+              content={content}
+              votes={votes}
+              id={id}
+              key={`card-${content}`}
+              updateContent={updateContent}
+            />
           )
         })}
       </article>
@@ -47,6 +62,7 @@ CardContainer.propTypes = {
     'needs-improve',
     'action-items',
   ]),
+  handleAddCard: PropTypes.func.isRequired,
 }
 
 export default CardContainer

@@ -1,45 +1,83 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { updateCard } from '../contexts/FirebaseAPI/firebase';
 
 const Header = styled.div`
-  color: inherit;
-  font-size: 1.25rem;
-  border-bottom: 3px solid black;
-  padding: 0;
-  margin: 0;
-  position: relative;
+  display: flex;
   font-weight: 700;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
 `
 const ThumbsUp = styled.button`
-  border: none;
   background: transparent;
-  color: inherit;
-  font-size: 1.25rem;
-  position: absolute;
-  right: 0;
+  border: none;
+  font-size: 2rem;
+  font-weight: 700;
 
   &:active {
     background: white;
-    color: black;
   }
 `
 
-const Content = styled.div`
-  padding: 0.5rem;
-  max-height: 8rem;
-  overflow: scroll;
+const Content = styled.textarea`
+  background-image: none;
+  border: none;
+  height: 20rem;
+  font-size: 2rem;
+  padding: 1rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  resize: none;
+  width: 100%;
 `
 const Card = (props) => {
-  const { content, votes } = props;
+  const {
+    content,
+    votes,
+    type,
+    bid,
+    id,
+    updateContent,
+  } = props;
+  const [localContent, setLocalContent] = React.useState(content);
+
+  React.useEffect(() => {
+    setLocalContent(content);
+  }, [content]);
+
+  function plusOne() {
+    let currentVotes;
+    updateCard(type, bid, id).child('votes').on("value", snapshot => {
+      currentVotes = snapshot.val();
+    })
+    updateCard(type, bid, id).update({ votes: currentVotes + 1 });
+  }
+  function onContentChange(e) {
+    const content = e.target.value;
+    setLocalContent(content);
+    document.getElementById(`${id}-content`).onkeypress = function (e) {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        updateContent(type, bid, id, content);
+      }
+    }
+  }
+
   return (
     <article>
       <Header>
-        <span>Number of votes: {votes}</span>
-        <ThumbsUp>+1</ThumbsUp>
+        <span>Votes: {votes}</span>
+        <ThumbsUp onClick={plusOne}>+1</ThumbsUp>
       </Header>
-      <Content>
-        {content}
+      <Content
+        form={`${id}-form-content`}
+        name={`${id}-content`}
+        id={`${id}-content`}
+        onChange={onContentChange}
+        value={localContent}
+      >
       </Content>
     </article>
   )
@@ -48,6 +86,15 @@ const Card = (props) => {
 Card.propTypes = {
   content: PropTypes.string.isRequired,
   votes: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+}
+Card.defaultPropts = {
+  content: '',
+  votes: 0,
+  id: 'unique-id'
 }
 
 export default Card

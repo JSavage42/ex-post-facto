@@ -88,6 +88,8 @@ const boards = () => db.ref(`boards`);
 const actionItems = bid => db.ref(`action-items/${bid}`);
 const wentWell = bid => db.ref(`went-well/${bid}`);
 const needsImprove = bid => db.ref(`needs-improve/${bid}`);
+const updateCard = (boardType, bid, cid) => db.ref(`${boardType}/${bid}/${cid}`);
+const addCard = (boardType, bid) => db.ref(`${boardType}/${bid}`);
 
 // Team API
 const team = tid => db.ref(`teams/${tid}`);
@@ -110,4 +112,6 @@ export {
   actionItems,
   wentWell,
   needsImprove,
+  updateCard,
+  addCard,
 }
