@@ -1,35 +1,31 @@
 import React from 'react'
-import Input from './styled/Input'
-import Button from './Button'
 import styled from 'styled-components'
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import firebase from 'firebase';
 
 const Form = styled.form`
   align-self: center;
   flex: 1 50%;
   padding: 0 2rem;
+
+  .firebaseui-title {
+    font-size: 2rem;
+  }
 `
 
+const uiConfig = {
+  signInFlow: 'popup',
+  signInSuccessUrl: '/home',
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+  ]
+}
+
 const Login = () => {
-  const isLogingIn = false;
   return (
     <Form>
-      <fieldset>
-        <Input placeholder="Username" />
-        <Input type="password" placeholder="Password" />
-      </fieldset>
-      <Button
-        type="submit"
-        title={isLogingIn ? 'Logging in...' : 'Login'}
-        onClick={() => { }}
-        variant="emphasis login"
-      />
-      <Button
-        disabled={isLogingIn}
-        type="reset"
-        title="Reset"
-        onClick={() => { }}
-        variant="neutral reset"
-      />
+      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
     </Form>
   )
 }

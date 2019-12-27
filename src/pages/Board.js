@@ -9,6 +9,7 @@ import {
   addCard,
   updateCard,
 } from '../components/contexts/FirebaseAPI/firebase';
+import Header from '../components/Header';
 
 const Main = styled.main`
   background-color: #fff;
@@ -16,20 +17,6 @@ const Main = styled.main`
   flex-direction: column;
   overflow: hidden;
   height: 100%;
-`
-
-const Header = styled.header`
-  background: #e2e2e2;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.7);
-  height: 8rem;
-
-  h1 {
-    color: rgba(0,0,0,0.7);
-    font-size: 3rem;
-    font-variant: small-caps;
-    font-weight: 300;
-    padding: 2rem;
-  }
 `
 
 const BoardTitle = styled.div`
@@ -101,9 +88,7 @@ const Board = () => {
 
   return (
     <Main className="board">
-      <Header>
-        <h1>Ex Post Facto</h1>
-      </Header>
+      <Header />
       <BoardTitle>
         <span>{title}</span>
         <EditTitleButton onClick={editTitle}>
