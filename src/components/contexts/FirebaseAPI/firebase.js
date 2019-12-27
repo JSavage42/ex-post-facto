@@ -1,4 +1,4 @@
-import app from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/storage';
@@ -21,15 +21,36 @@ const config = {
   appId: APP_ID,
 }
 
-app.initializeApp(config);
+firebase.initializeApp(config);
 
-const auth = app.auth;
-const db = app.database();
+const auth = firebase.auth();
+const db = firebase.database();
 
-const googleProvider = new app.auth.GoogleAuthProvider();
+const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-const doCreateUserWithEmailAndPassword = (email, password) => auth.createUserWithEmailAndPassword(email, password);
-const doSignInWithEmailAndPassword = (email, password) => auth.signInWithEmailAndPassword(email, password);
+// Users API
+const doCreateUserWithEmailAndPassword = (email, password, setError) => {
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(authUser => {
+      return db.ref(`users/${authUser.user.uid}`).set({
+        uid: authUser.user.uid,
+        email,
+      });
+    })
+    .catch(err => {
+      const { code, message } = err;
+      setError(message);
+      console.error(`Error ${code} -- ${message}`)
+    });
+}
+const doSignInWithEmailAndPassword = (email, password, setError) => {
+  auth.signInWithEmailAndPassword(email, password)
+    .catch(err => {
+      const { code, message } = err;
+      setError(message);
+      console.error(`Error ${code} -- ${message}`)
+    });
+}
 const doSignInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 const doSignOut = () => auth.signOut();
@@ -38,46 +59,23 @@ const doEmailVerification = () => auth.currentUser.sendEmailVerification({
   url: process.env.CONFIRMATION_EMAIL_REDIRECT,
 });
 
-const onAuthUserListener = (next, fallback) => {
-  auth.onAuthStateChanged(authUser => {
-    if (authUser) {
-      user(authUser.uid)
-        .once('value')
-        .then(snapshot => {
-          const dbUser = snapshot.value();
 
-          if (!dbUser.roles) {
-            dbUser.roles = [];
-          }
+const user = firebase.auth().currentUser
+console.log(user)
+const onUpdateProfile = (displayName) => user.updateProfile({
+  displayName,
+})
 
-          authUser = {
-            uid: authUser.uid,
-            email: authUser.email,
-            emailVerified: authUser.emailVerified,
-            providerData: authUser.providerData,
-            ...dbUser,
-          };
-
-          next(authUser);
-        });
+const onAuthUserListener = () => (
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      console.log(user.displayName)
+      return user;
     } else {
-      fallback();
+      console.log('nope')
     }
-  });
-}
-
-// Users API
-
-/**
- * Used
- * ```
- * users().on("value", (snapshot) => {
- *   do something
- * });
- * ```
- * @param {number} uid - user id
- */
-const user = uid => db.ref(`users/${uid}`);
+  })
+)
 const users = () => db.ref(`users`);
 
 // Board API
@@ -107,11 +105,11 @@ export {
   boards,
   team,
   teams,
-  user,
   users,
   actionItems,
   wentWell,
   needsImprove,
   updateCard,
   addCard,
+  onUpdateProfile,
 }

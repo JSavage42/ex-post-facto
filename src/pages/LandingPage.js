@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Header from '../components/Header'
+import { onAuthUserListener } from '../components/contexts/FirebaseAPI/firebase';
 
 const Main = styled.main`
   background-color: #fff;
@@ -10,13 +11,22 @@ const Main = styled.main`
   height: 100%;
 `
 
+const Section = styled.section`
+  padding: 2rem;
+
+  h2 {
+    font-size: 4rem;
+  }
+`
+
+onAuthUserListener();
 const LandingPage = () => {
   return (
     <Main>
       <Header />
-      <div>
-        <h2>Landing Page!</h2>
-      </div>
+      <Section>
+        <h2>Welcome</h2>
+      </Section>
     </Main>
   )
 }

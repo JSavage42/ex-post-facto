@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { team, teams, onAuthUserListener } from '../components/contexts/FirebaseAPI/firebase';
+import { onAuthUserListener, onUpdateProfile } from '../components/contexts/FirebaseAPI/firebase';
 import Header from '../components/Header'
 import Input from '../components/styled/Input'
 import Button from '../components/styled/Button'
@@ -33,8 +33,9 @@ const Section = styled.section`
   }
 `
 
-const AdminPage = props => {
-  const [name, setName] = React.useState('');
+const ProfilePage = props => {
+  const [fname, setFName] = React.useState('');
+  const [lname, setLName] = React.useState('');
   const [currentUser, setCurrentUser] = React.useState({});
 
   React.useEffect(() => {
@@ -42,37 +43,44 @@ const AdminPage = props => {
     setCurrentUser(currentUser);
   }, []);
 
-  const onNameChange = (e) => {
+  const onFNameChange = (e) => {
     const { value } = e.target;
-    setName(value);
+    setFName(value);
+  }
+  const onLNameChange = (e) => {
+    const { value } = e.target;
+    setLName(value);
   }
 
-  function handleCreateTeam(e) {
-    e.preventDefault();
-    const newTeamRef = teams().push();
-    const newTeamId = newTeamRef.key;
-    team(newTeamId).set({
-      tid: newTeamId,
-      name,
-    })
-  }
+  const updateUserProfile = () => {
+    const displayName = `${fname} ${lname}`
+    onUpdateProfile(displayName);
+  };
 
-  console.log(currentUser);
+  console.log(currentUser)
 
   return (
     <Main>
       <Header />
-      <h2>Admin</h2>
+      <h2>Profile</h2>
       <Section>
-        <h3>Teams</h3>
-        <form onSubmit={handleCreateTeam}>
+        <h3>Personal Information</h3>
+        <form onSubmit={updateUserProfile}>
           <Input
-            placeholder="Username"
-            name="username"
-            id="username"
+            placeholder="First Name"
+            name="fname"
+            id="fname"
             type="text"
-            value={name}
-            onChange={onNameChange}
+            value={fname}
+            onChange={onFNameChange}
+          />
+          <Input
+            placeholder="Last Name"
+            name="lname"
+            id="lname"
+            type="text"
+            value={lname}
+            onChange={onLNameChange}
           />
           <Button
             type="submit"
@@ -81,14 +89,8 @@ const AdminPage = props => {
           />
         </form>
       </Section>
-      {currentUser && (
-        <Section>
-          <h3>User</h3>
-          {currentUser.displayName}
-        </Section>
-      )}
     </Main>
   )
 }
 
-export default AdminPage
+export default ProfilePage

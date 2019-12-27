@@ -65,7 +65,6 @@ const Board = () => {
   }, [setActionItemsObj]);
 
   const handleAddCard = (type) => {
-    console.log('add card');
     const newCardRef = board('one').push();
     const newCardId = newCardRef.key;
     addCard(type, 'one').child(newCardId).set({
