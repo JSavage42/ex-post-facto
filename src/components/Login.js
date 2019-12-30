@@ -30,7 +30,7 @@ const Login = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     setIsLoggingIn(true);
-    doSignInWithEmailAndPassword(email, password, setError);
+    doSignInWithEmailAndPassword(email, password, setError)
   }
 
   return (

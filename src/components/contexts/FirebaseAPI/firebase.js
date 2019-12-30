@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/storage';
+import { history } from 'react-router-dom';
 
 const API_KEY = "AIzaSyCViLMLlNGLaNixHHXdzTAPuFnZU60fBAY";
 const AUTH_DOMAIN = "ex-post-facto-dev.firebaseapp.com";
@@ -28,6 +29,7 @@ const db = firebase.database();
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
+
 // Users API
 const doCreateUserWithEmailAndPassword = (email, password, setError) => {
   auth.createUserWithEmailAndPassword(email, password)
@@ -45,6 +47,7 @@ const doCreateUserWithEmailAndPassword = (email, password, setError) => {
 }
 const doSignInWithEmailAndPassword = (email, password, setError) => {
   auth.signInWithEmailAndPassword(email, password)
+    .then(window.history.pushState({}, {}, '/home'))
     .catch(err => {
       const { code, message } = err;
       setError(message);
@@ -61,7 +64,7 @@ const doEmailVerification = () => auth.currentUser.sendEmailVerification({
 
 
 const user = firebase.auth().currentUser
-console.log(user)
+
 const onUpdateProfile = (displayName) => user.updateProfile({
   displayName,
 })
