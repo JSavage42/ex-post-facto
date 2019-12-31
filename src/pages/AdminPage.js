@@ -1,50 +1,50 @@
 import React from 'react'
-import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
 
-import { team, teams, onAuthUserListener } from '../components/contexts/FirebaseAPI/firebase';
+import { team, teams, board, users, } from '../components/contexts/FirebaseAPI/firebase';
 import Header from '../components/Header'
 import Input from '../components/styled/Input'
 import Button from '../components/styled/Button'
+import Card from '../components/styled/Card'
+import Main from '../components/styled/Main';
+import Container from '../components/styled/Container';
+import Section from '../components/styled/Section';
+import { useAuthContext } from '../components/contexts/AuthContext';
 
-const Main = styled.main`
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
+const AdminPage = () => {
+  const [teamName, setTeamName] = React.useState('');
+  const [boardName, setBoardName] = React.useState('');
+  const [boardTeamName, setBoardTeamName] = React.useState('');
+  const [teamsObj, setTeamsObj] = React.useState({})
+  const [usersObj, setUsersObj] = React.useState({})
+  const user = useAuthContext();
+  const history = useHistory();
 
-  h2 {
-    padding: 2rem;
-    font-size: 4rem;
-  }
-`
+  React.useMemo(() => {
+    teams().on('value', snapshot => {
+      setTeamsObj(snapshot.val());
+    })
+  }, [setTeamsObj])
 
-const Section = styled.section`
-  margin: 0 auto;
-  padding: 2rem;
-  width: 80%;
+  React.useMemo(() => {
+    users().on('value', snapshot => {
+      setUsersObj(snapshot.val());
+    })
+  }, [setUsersObj])
 
-  h3 {
-    font-size: 3rem;
-  }
-  form input,
-  form button {
-    width: 50%;
-  }
-`
-
-const AdminPage = props => {
-  const [name, setName] = React.useState('');
-  const [currentUser, setCurrentUser] = React.useState({});
-
-  React.useEffect(() => {
-    const currentUser = onAuthUserListener();
-    setCurrentUser(currentUser);
-  }, []);
-
-  const onNameChange = (e) => {
+  const onTeamNameChange = (e) => {
     const { value } = e.target;
-    setName(value);
+    setTeamName(value);
+  }
+
+  const onBoardNameChange = (e) => {
+    const { value } = e.target;
+    setBoardName(value);
+  }
+
+  const onBoardTeamChange = (e) => {
+    const { value } = e.target;
+    setBoardTeamName(value);
   }
 
   function handleCreateTeam(e) {
@@ -53,40 +53,116 @@ const AdminPage = props => {
     const newTeamId = newTeamRef.key;
     team(newTeamId).set({
       tid: newTeamId,
-      name,
+      name: teamName,
     })
   }
 
-  console.log(currentUser);
+  function handleCreateBoard(e) {
+    e.preventDefault()
+    const newBoardRef = teams().push();
+    const newBoardId = newBoardRef.key;
+    board(newBoardId).set({
+      bid: newBoardId,
+      title: boardName,
+      team: boardTeamName,
+    })
+    history.push(`/board/${newBoardId}`)
+  }
+
+  const isTeamsList = Object.values(teamsObj).length !== 0;
+  const isUsersList = Object.values(usersObj).length !== 0;
 
   return (
     <Main>
       <Header />
-      <h2>Admin</h2>
       <Section>
-        <h3>Teams</h3>
-        <form onSubmit={handleCreateTeam}>
-          <Input
-            placeholder="Username"
-            name="username"
-            id="username"
-            type="text"
-            value={name}
-            onChange={onNameChange}
-          />
-          <Button
-            type="submit"
-            title="Create"
-            variant="emphasis"
-          />
-        </form>
+        <h2>Admin Dashboard</h2>
       </Section>
-      {currentUser && (
+      <Container>
         <Section>
-          <h3>User</h3>
-          {currentUser.displayName}
+          <Card>
+            <h3>Team</h3>
+            <form onSubmit={handleCreateTeam}>
+              <Input
+                placeholder="Team Name"
+                name="teamName"
+                id="teamName"
+                type="text"
+                value={teamName}
+                onChange={onTeamNameChange}
+              />
+              <Button
+                type="submit"
+                title="Create"
+                variant="emphasis"
+              />
+            </form>
+            <ul>
+              {isTeamsList ? (
+                Object.values(teamsObj).map(value => (
+                  <li key={value.tid}>
+                    <a href={`/team/${value.tid}`} alt={value.name}>
+                      {value.name}
+                    </a>
+                  </li>
+                ))
+              ) : (<div>Loading ...</div>)}
+            </ul>
+          </Card>
         </Section>
-      )}
+        <Section>
+          <Card>
+            <h3>Board</h3>
+            <form onSubmit={handleCreateBoard}>
+              <Input
+                placeholder="Board Name"
+                name="boardName"
+                id="boardName"
+                type="text"
+                value={boardName}
+                onChange={onBoardNameChange}
+              />
+              <div className="select">
+                <select onChange={onBoardTeamChange}>
+                {isTeamsList && (
+                  Object.values(teamsObj).map(value => (
+                    <option
+                      key={value.tid}
+                      value={value.tid}
+                    >
+                      {value.name}
+                    </option>
+                  ))
+                  )}
+                </select>
+              </div>
+              <Button
+                type="submit"
+                title="Create"
+                variant="emphasis"
+              />
+            </form>
+          </Card>
+        </Section>
+        {user && (
+          <Section>
+            <Card>
+              <h3>Users</h3>
+              <ul>
+                {isUsersList ? (
+                  Object.values(usersObj).map(value => (
+                    <li key={value.bid}>
+                      <a href={`/user/${value.uid}`} alt={value.username}>
+                        {value.displayName}
+                      </a>
+                    </li>
+                  ))
+                ) : (<div>Loading ...</div>)}
+              </ul>
+            </Card>
+          </Section>
+        )}
+      </Container>
     </Main>
   )
 }

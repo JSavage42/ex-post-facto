@@ -1,32 +1,80 @@
 import React from 'react'
-import styled from 'styled-components'
+
+import { teams, boards } from '../components/contexts/FirebaseAPI/firebase';
 import Header from '../components/Header'
-import { onAuthUserListener } from '../components/contexts/FirebaseAPI/firebase';
+import Hourglass from '../components/styled/Hourglass'
+import Card from '../components/styled/Card';
+import Main from '../components/styled/Main';
+import Container from '../components/styled/Container';
+import Section from '../components/styled/Section';
 
-const Main = styled.main`
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  height: 100%;
-`
-
-const Section = styled.section`
-  padding: 2rem;
-
-  h2 {
-    font-size: 4rem;
-  }
-`
-
-onAuthUserListener();
 const LandingPage = () => {
+  const [teamsObj, setTeamsObj] = React.useState({})
+  const [boardObj, setBoardObj] = React.useState({})
+
+  React.useMemo(() => {
+    teams().on('value', snapshot => {
+      setTeamsObj(snapshot.val());
+    })
+  }, [setTeamsObj])
+
+  React.useMemo(() => {
+    boards().on('value', snapshot => {
+      setBoardObj(snapshot.val());
+    })
+  }, [setBoardObj])
+
+  const isTeamsList = Object.values(teamsObj).length !== 0;
+  const isBoardsList = Object.values(boardObj).length !== 0;
+  const isLoading = !(isTeamsList || isBoardsList);
   return (
     <Main>
       <Header />
       <Section>
-        <h2>Welcome</h2>
+        <h2>Dashboard</h2>
       </Section>
+      <Container className={isLoading ? '-isLoading' : ''}>
+        {isLoading && <Hourglass />}
+        <Section>
+          <Card>
+            <h2>Admin</h2>
+            <a href="/admin">Go to Admin Dashboard</a>
+          </Card>
+        </Section>
+        <Section>
+          <Card>
+            <h2>Teams</h2>
+            <p>{isTeamsList ? 'Click a team to join' : ''}</p>
+            <ul>
+              {isTeamsList ? (
+                Object.values(teamsObj).map(value => (
+                  <li key={value.tid}>
+                    <a href={`/team/${value.tid}`} alt={value.name}>
+                      {value.name}
+                    </a>
+                  </li>
+                ))
+              ) : (<div>Loading ...</div>)}
+            </ul>
+          </Card>
+        </Section>
+        <Section>
+          <Card>
+          <h2>Boards</h2>
+          <ul>
+            {isBoardsList ? (
+              Object.values(boardObj).map(value => (
+                <li key={value.bid}>
+                  <a href={`/board/${value.bid}`} alt={value.title}>
+                    {value.title}
+                  </a>
+                </li>
+              ))
+            ) : (<div>Loading ...</div>)}
+          </ul>
+          </Card>
+        </Section>
+      </Container>
     </Main>
   )
 }

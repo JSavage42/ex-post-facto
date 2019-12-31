@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useLocation } from 'react-router-dom'
 import CardsSection from '../components/Board/CardsSection'
 import {
   actionItems,
@@ -10,9 +11,10 @@ import {
   updateCard,
 } from '../components/contexts/FirebaseAPI/firebase';
 import Header from '../components/Header';
+import Input from '../components/styled/Input';
 
 const Main = styled.main`
-  background-color: #fff;
+  background-color: var(--bg-color);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -20,62 +22,93 @@ const Main = styled.main`
 `
 
 const BoardTitle = styled.div`
-  box-shadow: 2px 15px 10px rgba(0,0,0,0.3);
-  color: #2f2f2f;
+  box-shadow: 2px 6px 10px var(--db-bs-lighter);
+  color: var(--yellow);
   display: inline-block;
   font-size: 4rem;
-  margin-top: 2rem;
   text-align: center;
 `
 
 const EditTitleButton = styled.button`
   background: transparent;
+  border: none;
   display: inline;
-  font-size: 5rem;
+  font-size: 4rem;
+`
+
+const H3 = styled.h3`
+  text-align: center;
+  font-size: 3rem;
+  color: var(--yellow);
+  margin-top: 4rem;
+
+  a:visited {
+    color: var(--yellow);
+  }
 `
 
 const Board = () => {
-  const [title, setTitle] = React.useState('HTML Retro 11/13');
+  const [title, setTitle] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [isEditingTitle, setIsEditingTitle] = React.useState(false);
   const [wentWellObj, setWentWellObj] = React.useState({});
   const [needsImproveObj, setNeedsImproveObj] = React.useState({});
   const [actionItemsObj, setActionItemsObj] = React.useState({});
 
-  React.useMemo(() => {
-    board('one').on('value', snapshot => {
-      setTitle(snapshot.val().title);
-    })
-  }, [setTitle]);
+  const location = useLocation();
+  const bid = location.pathname.substring(7);
 
   React.useMemo(() => {
-    wentWell('one').on("value", snapshot => {
+    board(bid).on('value', snapshot => {
+      setTitle(
+        snapshot.val() ? snapshot.val().title : ''
+      );
+      setIsLoading(snapshot.val());
+    })
+  }, [bid]);
+
+  React.useMemo(() => {
+    wentWell(bid).on("value", snapshot => {
       setWentWellObj(snapshot.val());
     })
-  }, [setWentWellObj]);
+  }, [bid]);
 
   React.useMemo(() => {
-    needsImprove('one').on("value", snapshot => {
+    needsImprove(bid).on("value", snapshot => {
       setNeedsImproveObj(snapshot.val());
     })
-  }, [setNeedsImproveObj]);
+  }, [bid]);
 
   React.useMemo(() => {
-    actionItems('one').on("value", snapshot => {
+    actionItems(bid).on("value", snapshot => {
       setActionItemsObj(snapshot.val());
     })
-  }, [setActionItemsObj]);
+  }, [bid]);
 
   const handleAddCard = (type) => {
-    const newCardRef = board('one').push();
+    const newCardRef = board(bid).push();
     const newCardId = newCardRef.key;
-    addCard(type, 'one').child(newCardId).set({
+    addCard(type, bid).child(newCardId).set({
       id: newCardId,
       content: '',
       votes: 0,
     });
   }
 
+  const handleOnTitleChange = (e) => {
+    const { value } = e.target;
+    setTitle(value);
+  }
+
   const editTitle = () => {
-    setTitle('Why would you click this?');
+    setIsEditingTitle(true);
+  }
+
+  const saveTitle = () => {
+    board(bid).update({
+      "title": title,
+    })
+    setIsEditingTitle(false);
   }
 
   const updateContent = (type, bid, id, content) => {
@@ -89,19 +122,35 @@ const Board = () => {
     <Main className="board">
       <Header />
       <BoardTitle>
-        <span>{title}</span>
-        <EditTitleButton onClick={editTitle}>
-          <span role="img" aria-label="Pencil">✏️</span>
-        </EditTitleButton>
+        <span>
+          {isEditingTitle ? (
+            <Input type="text" value={title} onChange={handleOnTitleChange} />
+          ) : (
+            `${title}`
+          )}
+        </span>
+        {isEditingTitle ? (
+          <EditTitleButton onClick={saveTitle}>
+            <span role="img" aria-label="Green Check mark">✅</span>
+          </EditTitleButton>
+        ) : (
+          <EditTitleButton onClick={editTitle}>
+            <span role="img" aria-label="Pencil">✏️</span>
+          </EditTitleButton>
+        )}
       </BoardTitle>
-      <CardsSection
-        bid='one'
-        wentWellObj={wentWellObj}
-        needsImproveObj={needsImproveObj}
-        actionItemsObj={actionItemsObj}
-        handleAddCard={handleAddCard}
-        updateContent={updateContent}
-      />
+      {title.length === 0 && !isLoading ? (
+        <H3>No board exists. <a href="/home">Go to Dashboard</a></H3>
+      ) : (
+        <CardsSection
+          bid={bid}
+          wentWellObj={wentWellObj}
+          needsImproveObj={needsImproveObj}
+          actionItemsObj={actionItemsObj}
+          handleAddCard={handleAddCard}
+          updateContent={updateContent}
+        />
+      )}
     </Main>
   )
 }

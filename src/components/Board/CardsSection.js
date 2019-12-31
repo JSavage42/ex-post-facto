@@ -29,13 +29,14 @@ const Section = styled.section`
     text-align: center;
 
     h2 {
-      text-decoration: underline;
+      color: var(--yellow);
     }
 
     button {
-      border: 2px solid blue;
+      background: var(--light-blue);
+      border: none;
       border-radius: 50%;
-      color: #2f2f2f;
+      color: var(--white);
       display: block;
       font-size: 2rem;
       height: 5rem;
@@ -44,15 +45,14 @@ const Section = styled.section`
       width: 5rem;
 
       &:active {
-        background: darkblue;
-        color: white
+        color: var(--yellow);
       }
     }
   }
 
   .card-container {
     align-content: flex-start;
-    color: #440440;
+    color: var(--white);
     display: flex;
     justify-content: space-around;
     flex: 0 0 10rem;
@@ -72,14 +72,14 @@ const Section = styled.section`
     }
 
     button {
-      background: green;
+      background: var(--yellow);
       border-radius: 50%;
-      color: white;
+      color: var(--white);
       padding: 0.5rem;
 
       &:active {
-        background: black;
-        color: white
+        background: var(--dark-blue);
+        color: var(--white)
       }
     }
   }
@@ -88,10 +88,10 @@ const Section = styled.section`
     border: 3px solid green;
   }
   .needs-improve .card-container article {
-    border: 3px solid orange;
+    border: 3px solid var(--yellow);
   }
   .action-items .card-container article {
-    border: 3px solid blue;
+    border: 3px solid var(--light-blue);
   }
 `
 

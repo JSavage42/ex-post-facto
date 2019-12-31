@@ -2,11 +2,15 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Title = styled.header`
-  background: #e2e2e2;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+  background: var(--header-bg-color);
+  box-shadow: 2px 2px 10px var(--db-bs);
+
+  a {
+    text-decoration: none;
+  }
 
   h1 {
-    color: rgba(0,0,0,0.7);
+    color: var(--yellow);
     font-size: 6rem;
     font-variant: small-caps;
     font-weight: 300;
@@ -16,7 +20,7 @@ const Title = styled.header`
 
 const Header = () => (
   <Title>
-    <h1>Ex Post Facto</h1>
+    <a href="/home"><h1>Ex Post Facto</h1></a>
   </Title>
 )
 

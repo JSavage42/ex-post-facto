@@ -56,7 +56,7 @@ CardContainer.propTypes = {
       content: PropTypes.string.isRequired,
       votes: PropTypes.number.isRequired,
     })
-  ).isRequired,
+  ),
   type: PropTypes.oneOf([
     'went-well',
     'needs-improve',

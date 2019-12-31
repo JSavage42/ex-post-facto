@@ -1,0 +1,17 @@
+:root {
+  --white: #ededed;
+  --white-rgb: rgb(237,237,237);
+  --grey: #4d5359;
+  --grey-rgb: rgb(77,83,89);
+  --yellow: #f3a712;
+  --yellow-rgb: rgb(243,167,18);
+  --dark-blue: #153b50;
+  --dark-blue-rgb: rgb(21,59,80);
+  --light-blue: #477890;
+  --light-blue-rgb: rgb(71,120,144);
+  --db-bs: rgba(21,59,80,0.7);
+  --db-bs-lighter: rgba(0,0,0,0.3);
+  --bg-color: var(--grey);
+  --header-bg-color: var(--dark-blue);
+  --card-bg-color: var(--light-blue);
+}

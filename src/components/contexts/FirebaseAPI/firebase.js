@@ -2,7 +2,6 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/storage';
-import { history } from 'react-router-dom';
 
 const API_KEY = "AIzaSyCViLMLlNGLaNixHHXdzTAPuFnZU60fBAY";
 const AUTH_DOMAIN = "ex-post-facto-dev.firebaseapp.com";
@@ -31,12 +30,17 @@ const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 
 // Users API
-const doCreateUserWithEmailAndPassword = (email, password, setError) => {
+const doCreateUserWithEmailAndPassword = (email, password, username, fname, lname, setError) => {
   auth.createUserWithEmailAndPassword(email, password)
     .then(authUser => {
+      const displayName = `${fname} ${lname}`
       return db.ref(`users/${authUser.user.uid}`).set({
         uid: authUser.user.uid,
         email,
+        username,
+        fname,
+        lname,
+        displayName,
       });
     })
     .catch(err => {
@@ -62,23 +66,10 @@ const doEmailVerification = () => auth.currentUser.sendEmailVerification({
   url: process.env.CONFIRMATION_EMAIL_REDIRECT,
 });
 
-
-const user = firebase.auth().currentUser
-
-const onUpdateProfile = (displayName) => user.updateProfile({
+const onUpdateProfile = (user, displayName) => user.updateProfile({
   displayName,
 })
 
-const onAuthUserListener = () => (
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      console.log(user.displayName)
-      return user;
-    } else {
-      console.log('nope')
-    }
-  })
-)
 const users = () => db.ref(`users`);
 
 // Board API
@@ -97,13 +88,13 @@ const team = tid => db.ref(`teams/${tid}`);
 const teams = () => db.ref(`teams`);
 
 export {
+  auth,
   doCreateUserWithEmailAndPassword,
   doSignInWithEmailAndPassword,
   doSignInWithGoogle,
   doSignOut,
   doPasswordReset,
   doEmailVerification,
-  onAuthUserListener,
   board,
   boards,
   team,

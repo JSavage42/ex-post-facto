@@ -5,27 +5,27 @@
   font-size: 2rem;
   margin: 0.45rem;
   padding: 0.75rem;
-  width: calc(100% - 0.45rem);
 
   &.emphasis {
-    background: green;
-    color: white;
+    background: var(--yellow);
+    color: var(--dark-blue);
 
     &:hover {
-      background: darken(green, 5);
+      background: darken(#f3a712, 5);
     }
   }
 
-  &.login:hover {
-    background: red;
-  }
-
   &.reset:hover {
-    background: white;
+    background: var(--dark-blue);
   }
 
   &.neutral {
-    background: grey;
-    color: black;
+    background: var(--white);
+    color: var(--dark-blue);
+
+    &:hover {
+      background: var(--white);
+      color: var(--light-blue)
+    }
   }
 }
