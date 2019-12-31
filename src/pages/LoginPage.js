@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Login from '../components/Login'
 
 const Main = styled.main`
-  background: var(--gb);
+  background: var(--white-hex);
   color: #4d5359;
   display: flex;
   height: 100%;
@@ -12,7 +12,7 @@ const Main = styled.main`
   width: 100vw;
 
   h1 {
-    color: var(--yellow);
+    color: var(--yellow-hex);
     font-size: 8rem;
     text-align: center;
   }
@@ -23,8 +23,8 @@ const Main = styled.main`
 
   div.title {
     align-items: center;
-    background: var(--dark-blue);
-    box-shadow: 2px 0 5px 5px rgba(21,59,80,0.3);
+    background: var(--black-hex);
+    box-shadow: 2px 0 5px 5px var(--black-rgba);
     display: flex;
     flex: 1 75%;
     justify-content: center;
@@ -33,7 +33,7 @@ const Main = styled.main`
 
   .login {
     align-self: center;
-    background: var(--light-blue);
+    background: var(--green-hex);
     margin: 2rem;
   }
 `

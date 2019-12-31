@@ -7,8 +7,8 @@
   padding: 0.75rem;
 
   &.emphasis {
-    background: var(--yellow);
-    color: var(--dark-blue);
+    background: var(--yellow-hex);
+    color: var(--green-hex);
 
     &:hover {
       background: darken(#f3a712, 5);
@@ -16,16 +16,16 @@
   }
 
   &.reset:hover {
-    background: var(--dark-blue);
+    background: var(--green-hex);
   }
 
   &.neutral {
-    background: var(--white);
-    color: var(--dark-blue);
+    background: var(--white-hex);
+    color: var(--green-hex);
 
     &:hover {
-      background: var(--white);
-      color: var(--light-blue)
+      background: var(--white-hex);
+      color: var(--green-hex)
     }
   }
 }

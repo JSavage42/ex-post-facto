@@ -21,8 +21,8 @@ const Animation = styled.div`
     height: 0;
     margin: 8px;
     box-sizing: border-box;
-    border: 32px solid var(--yellow);
-    border-color: var(--yellow) var(--dark-blue) var(--yellow) var(--dark-blue);
+    border: 32px solid var(--yellow-hex);
+    border-color: var(--yellow-hex) var(--black-hex) var(--yellow-hex) var(--black-hex);
     animation: lds-hourglass 1.2s infinite;
   }
 

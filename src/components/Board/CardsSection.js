@@ -9,7 +9,7 @@ const Section = styled.section`
   height: 100%;
 
   section {
-    border-right: 4px solid black;
+    border-right: 4px solid var(--black-hex);
     height: 100%;
     overflow: scroll;
     width: calc(100%/3);
@@ -29,14 +29,14 @@ const Section = styled.section`
     text-align: center;
 
     h2 {
-      color: var(--yellow);
+      color: var(--red-hex);
     }
 
     button {
-      background: var(--light-blue);
+      background: var(--green-hex);
       border: none;
       border-radius: 50%;
-      color: var(--white);
+      color: var(--white-hex);
       display: block;
       font-size: 2rem;
       height: 5rem;
@@ -44,15 +44,15 @@ const Section = styled.section`
       margin-top: 0.5rem;
       width: 5rem;
 
-      &:active {
-        color: var(--yellow);
+      &:active, &:hover {
+        color: var(--yellow-hex);
       }
     }
   }
 
   .card-container {
     align-content: flex-start;
-    color: var(--white);
+    color: var(--red-hex);
     display: flex;
     justify-content: space-around;
     flex: 0 0 10rem;
@@ -60,6 +60,7 @@ const Section = styled.section`
     overflow: scroll;
 
     article {
+      background-color: var(--green-hex);
       border-radius: 5%;
       box-shadow: 0.65rem 0.65rem 0.75rem 0.125rem rgba(0,0,0,0.3);
       color: #2f2f2f;
@@ -72,26 +73,31 @@ const Section = styled.section`
     }
 
     button {
-      background: var(--yellow);
+      background: var(--yellow-hex);
       border-radius: 50%;
-      color: var(--white);
+      color: var(--white-hex);
       padding: 0.5rem;
 
-      &:active {
-        background: var(--dark-blue);
-        color: var(--white)
+      &:active, &:hover {
+        background: var(--green-hex);
+        color: var(--white-hex)
       }
     }
   }
 
+  .went-well .card-container article,
+  .needs-improve .card-container article,
+  .action-items .card-container article {
+    border: 3px solid;
+  }
   .went-well .card-container article {
-    border: 3px solid green;
+    border-color: var(--black-hex);
   }
   .needs-improve .card-container article {
-    border: 3px solid var(--yellow);
+    border-color: var(--red-hex);
   }
   .action-items .card-container article {
-    border: 3px solid var(--light-blue);
+    border-color: var(--yellow-hex);
   }
 `
 

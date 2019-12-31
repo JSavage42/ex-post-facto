@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { updateCard } from '../contexts/FirebaseAPI/firebase';
 
 const Header = styled.div`
-  color: var(--yellow);
+  color: var(--yellow-hex);
   display: flex;
   font-weight: 700;
   justify-content: space-between;
@@ -18,14 +18,14 @@ const ThumbsUp = styled.button`
   font-weight: 700;
 
   &:active {
-    background: var(--white);
+    background: var(--white-hex);
   }
 `
 
 const Content = styled.textarea`
-  background-color: var(--grey);
+  background-color: var(--green-hex);
   border: none;
-  color: var(--white);
+  color: var(--white-hex);
   height: 20rem;
   font-size: 2rem;
   padding: 1rem;

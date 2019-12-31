@@ -10,11 +10,12 @@ const Title = styled.header`
   }
 
   h1 {
-    color: var(--yellow);
+    color: var(--header-font-color);
     font-size: 6rem;
     font-variant: small-caps;
-    font-weight: 300;
+    font-weight: 800;
     padding: 2rem;
+    font-family: var(--fancy-font)
   }
 `
 

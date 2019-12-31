@@ -37,13 +37,13 @@ const LandingPage = () => {
         {isLoading && <Hourglass />}
         <Section>
           <Card>
-            <h2>Admin</h2>
+            <h3>Admin</h3>
             <a href="/admin">Go to Admin Dashboard</a>
           </Card>
         </Section>
         <Section>
           <Card>
-            <h2>Teams</h2>
+            <h3>Teams</h3>
             <p>{isTeamsList ? 'Click a team to join' : ''}</p>
             <ul>
               {isTeamsList ? (
@@ -60,7 +60,7 @@ const LandingPage = () => {
         </Section>
         <Section>
           <Card>
-          <h2>Boards</h2>
+          <h3>Boards</h3>
           <ul>
             {isBoardsList ? (
               Object.values(boardObj).map(value => (

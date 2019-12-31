@@ -23,7 +23,7 @@ const Main = styled.main`
 
 const BoardTitle = styled.div`
   box-shadow: 2px 6px 10px var(--db-bs-lighter);
-  color: var(--yellow);
+  color: var(--yellow-hex);
   display: inline-block;
   font-size: 4rem;
   text-align: center;
@@ -39,11 +39,11 @@ const EditTitleButton = styled.button`
 const H3 = styled.h3`
   text-align: center;
   font-size: 3rem;
-  color: var(--yellow);
+  color: var(--yellow-hex);
   margin-top: 4rem;
 
   a:visited {
-    color: var(--yellow);
+    color: var(--yellow-hex);
   }
 `
 

@@ -5,12 +5,12 @@ const Section = styled.section`
   padding: 2rem;
 
   h2 {
-    color: var(--yellow);
+    color: var(--h2-color);
     font-size: 4rem;
   }
 
   h3 {
-    color: var(--yellow);
+    color: var(--h3-color);
     font-size: 3rem;
   }
 
@@ -19,9 +19,9 @@ const Section = styled.section`
   }
 
   .select {
-    background: var(--white);
+    background: var(--white-hex);
     border-radius: 15px;
-    color: var(--grey);
+    color: var(--black-hex);
     display: block;
     margin: 0;
     overflow: hidden;
@@ -33,7 +33,7 @@ const Section = styled.section`
     appearance: none;
     background-color: transparent;
     background-image: none;
-    color: var(--grey);
+    color: var(--black-hex);
     display: block;
     font-size: 2rem;
     padding: 0.5rem;
