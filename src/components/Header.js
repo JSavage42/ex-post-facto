@@ -11,11 +11,8 @@ const Title = styled.header`
 
   h1 {
     color: var(--header-font-color);
-    font-size: 6rem;
-    font-variant: small-caps;
-    font-weight: 800;
+    font: var(--header-font);
     padding: 2rem;
-    font-family: var(--fancy-font)
   }
 `
 

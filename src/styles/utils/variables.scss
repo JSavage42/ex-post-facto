@@ -1,6 +1,7 @@
 :root {
   @import url('https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap');
-  --fancy-font: 'Nanum Myeongjo', serif;
+  --fancy-font: 800 8rem 'Nanum Myeongjo', serif;
+  --header-font: 800 6rem 'Nanum Myeongjo', serif;
   /* Color Theme Swatches in Hex */
   --black-hex: #28364A;
   --white-hex: #FFEED6;
@@ -34,7 +35,7 @@
   --db-bs: rgba(45,92,92,0.7);
   --db-bs-lighter: rgba(0,0,0,0.3);
   --bg-color: var(--white-hex);
-  --header-bg-color: var(--green-hex);
+  --header-bg-color: var(--black-hex);
   --header-font-color: var(--red-hex);
   --card-bg-color: var(--green-hex);
   --h2-color: var(--red-hex);

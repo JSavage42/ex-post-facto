@@ -12,9 +12,9 @@ const Main = styled.main`
   width: 100vw;
 
   h1 {
-    color: var(--yellow-hex);
-    font-size: 8rem;
+    color: var(--header-font-color);
     text-align: center;
+    font: var(--fancy-font);
   }
 
   div {
