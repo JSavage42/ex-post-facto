@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useLocation } from 'react-router-dom'
+import XLSX from 'xlsx'
+
 import CardsSection from '../components/Board/CardsSection'
 import {
   actionItems,
@@ -12,6 +14,7 @@ import {
 } from '../components/contexts/FirebaseAPI/firebase';
 import Header from '../components/Header';
 import Input from '../components/styled/Input';
+import { ReactComponent as Icon } from '../icons/excel.svg'
 
 const Main = styled.main`
   background-color: var(--bg-color);
@@ -22,18 +25,27 @@ const Main = styled.main`
 `
 
 const BoardTitle = styled.div`
-  box-shadow: 2px 6px 10px var(--db-bs-lighter);
+  background: var(--green-hex);
+  box-shadow: 2px 6px 10px var(--black-hex);
   color: var(--yellow-hex);
-  display: inline-block;
+  display: flex;
   font-size: 4rem;
   text-align: center;
+  justify-content: space-evenly;
 `
 
 const EditTitleButton = styled.button`
   background: transparent;
   border: none;
   display: inline;
-  font-size: 4rem;
+  font-size: 3rem;
+`
+
+const ExcelExportButton = styled.button`
+  background: transparent;
+  border: none;
+  display: inline;
+  justify-self: flex-end;
 `
 
 const H3 = styled.h3`
@@ -118,10 +130,43 @@ const Board = () => {
     });
   }
 
+  const wentWellArr = [['content', 'id', 'votes']]
+  Object.values(wentWellObj).forEach(value => {
+    wentWellArr.push(Object.values(value));
+  })
+  const needsImproveArr = [['content', 'id', 'votes']]
+  Object.values(needsImproveObj).forEach(value => {
+    needsImproveArr.push(Object.values(value));
+  })
+  const actionItemsArr = [['content', 'id', 'votes']]
+  Object.values(actionItemsObj).forEach(value => {
+    actionItemsArr.push(Object.values(value));
+  })
+  const handleExportFile = () => {
+    const wb = XLSX.utils.book_new()
+    const wsWW = XLSX.utils.aoa_to_sheet(wentWellArr);
+    const wsNI = XLSX.utils.aoa_to_sheet(needsImproveArr);
+    const wsAI = XLSX.utils.aoa_to_sheet(actionItemsArr);
+
+    XLSX.utils.book_append_sheet(wb, wsWW, "Went Well")
+    XLSX.utils.book_append_sheet(wb, wsNI, "Needs Improve")
+    XLSX.utils.book_append_sheet(wb, wsAI, "Action Items")
+    XLSX.writeFile(wb, `${title}.xlsx`)
+  }
+
   return (
     <Main className="board">
       <Header />
       <BoardTitle>
+        {isEditingTitle ? (
+          <EditTitleButton onClick={saveTitle}>
+            <span role="img" aria-label="Green Check mark">✅</span>
+          </EditTitleButton>
+        ) : (
+            <EditTitleButton onClick={editTitle}>
+              <span role="img" aria-label="Pencil">✏️</span>
+            </EditTitleButton>
+        )}
         <span>
           {isEditingTitle ? (
             <Input type="text" value={title} onChange={handleOnTitleChange} />
@@ -129,15 +174,9 @@ const Board = () => {
             `${title}`
           )}
         </span>
-        {isEditingTitle ? (
-          <EditTitleButton onClick={saveTitle}>
-            <span role="img" aria-label="Green Check mark">✅</span>
-          </EditTitleButton>
-        ) : (
-          <EditTitleButton onClick={editTitle}>
-            <span role="img" aria-label="Pencil">✏️</span>
-          </EditTitleButton>
-        )}
+        <ExcelExportButton type="button" onClick={handleExportFile}>
+          <Icon />
+        </ExcelExportButton>
       </BoardTitle>
       {title.length === 0 && !isLoading ? (
         <H3>No board exists. <a href="/home">Go to Dashboard</a></H3>

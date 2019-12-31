@@ -27,6 +27,7 @@ const Content = styled.textarea`
   border: none;
   color: var(--white-hex);
   height: 20rem;
+  font-family: 'Helvetica Neue', sans-serif;
   font-size: 2rem;
   padding: 1rem;
   overflow-y: scroll;

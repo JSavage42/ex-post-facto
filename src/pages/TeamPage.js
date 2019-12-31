@@ -18,7 +18,9 @@ import Section from '../components/styled/Section';
 const TeamPage = () => {
   const [teamName, setTeamName] = React.useState('');
   const [boardName, setBoardName] = React.useState('');
+  const [boardError, setBoardError] = React.useState();
   const [username, setUsername] = React.useState('');
+  const [memberError, setMemberError] = React.useState();
   const [members, setMembers] = React.useState({});
   const [boardObj, setBoardObj] = React.useState([]);
   const location = useLocation();
@@ -46,12 +48,17 @@ const TeamPage = () => {
 
   const handleAddMember = e => {
     e.preventDefault()
-    const newMemberRef = team(tid).child('members').push();
-    const newMemberId = newMemberRef.key;
-    team(tid).child('members').push({
-      uid: newMemberId,
-      username,
-    })
+    if (username !== '') {
+
+      const newMemberRef = team(tid).child('members').push();
+      const newMemberId = newMemberRef.key;
+      team(tid).child('members').push({
+        uid: newMemberId,
+        username,
+      })
+    } else {
+      setMemberError('Please enter a username')
+    }
   }
 
   const onUsernameChange = e => {
@@ -66,13 +73,17 @@ const TeamPage = () => {
 
   const handleCreateBoard = e =>{
     e.preventDefault()
-    const newBoardRef = teams().push();
-    const newBoardId = newBoardRef.key;
-    board(newBoardId).set({
-      bid: newBoardId,
-      title: boardName,
-      team: tid,
-    })
+    if (boardName !== '') {
+      const newBoardRef = teams().push();
+      const newBoardId = newBoardRef.key;
+      board(newBoardId).set({
+        bid: newBoardId,
+        title: boardName,
+        team: tid,
+      })
+    } else {
+      setBoardError('Please enter a name');
+    }
   }
 
   const isBoardsList = Object.values(boardObj).length !== 0;
@@ -87,6 +98,7 @@ const TeamPage = () => {
         <Section>
           <Card>
             <h3>Boards</h3>
+            {boardError && <p>{boardError}</p>}
             <form onSubmit={handleCreateBoard}>
               <Input
                 placeholder="Board Name"
@@ -118,15 +130,22 @@ const TeamPage = () => {
         <Section>
           <Card>
             <h3>Members</h3>
-            {members &&
-              Object.values(members).map(member => (
-                <p key={member.uid}>{member.username}</p>
-              ))}
+            <ul>
+              {members &&
+                Object.values(members).map(member => (
+                  <li key={member.uid}>
+                    <a href={`/user/${member.uid}`} alt={member.displayName}>
+                      {member.username}
+                    </a>
+                  </li>
+                ))}
+            </ul>
           </Card>
         </Section>
         <Section>
           <Card>
             <h3>Add Members</h3>
+            {memberError && <p>{memberError}</p>}
             <form onSubmit={handleAddMember}>
               <Input
                 placeholder="User Name"
