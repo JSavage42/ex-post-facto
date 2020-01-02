@@ -2,6 +2,11 @@
   "name": "ex-post-facto",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "description": "Agile Retro Board Tool",
+  "keywords": "agile, retro, scrum, tools, teams",
+  "homepage": "https://expostfacto.dev",
+  "author": "Jason A. Savage <jasavage42@gmail.com> (https://thesavage.dev)",
   "dependencies": {
     "firebase": "^7.6.1",
     "firebaseui": "^4.4.0",
