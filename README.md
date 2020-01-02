@@ -1,6 +1,7 @@
-[![Build Status](https://travis-ci.org/JSavage42/ex-post-facto.svg?branch=master)](https://travis-ci.org/JSavage42/ex-post-facto)
-
-[![LICENSE](https://img.shields.io/github/license/jsavage42/ex-post-facto?style=for-the-badge)
+![Author](https://img.shields.io/github/package-json/author/jsavage42/ex-post-facto?style=for-the-badge)
+![Build Status](https://img.shields.io/travis/jsavage42/ex-post-facto?logo=travis&style=for-the-badge)
+![LICENSE](https://img.shields.io/github/license/jsavage42/ex-post-facto?style=for-the-badge)
+![Version](https://img.shields.io/github/package-json/v/jsavage42/ex-post-facto?color=green&style=for-the-badge)
 
 ## Available Scripts
 
