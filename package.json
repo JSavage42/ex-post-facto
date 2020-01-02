@@ -6,7 +6,7 @@
   "description": "Agile Retro Board Tool",
   "keywords": "agile, retro, scrum, tools, teams",
   "homepage": "https://expostfacto.dev",
-  "author": "Jason A. Savage <jasavage42@gmail.com> (https://thesavage.dev)",
+  "author": "Jason A. Savage",
   "dependencies": {
     "firebase": "^7.6.1",
     "firebaseui": "^4.4.0",
