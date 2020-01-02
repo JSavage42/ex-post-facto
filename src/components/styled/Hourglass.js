@@ -41,6 +41,6 @@ const Animation = styled.div`
   }
 `
 
-const Hourglass = () => <Animation></Animation>;
+const Hourglass = () => <Animation></Animation>
 
 export default Hourglass

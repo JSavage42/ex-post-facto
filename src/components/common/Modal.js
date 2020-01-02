@@ -46,11 +46,11 @@ const Modal = ({
 }) => {
   document.body.addEventListener('keydown', event => {
     if (event.keyCode === 27) {
-      setIsOpen(false);
+      setIsOpen(false)
     }
   })
   const handleClose = () => {
-    setIsOpen(false);
+    setIsOpen(false)
   }
   return (
     isOpen && (

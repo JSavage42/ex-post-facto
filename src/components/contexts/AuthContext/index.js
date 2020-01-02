@@ -1,10 +1,10 @@
 import React from 'react'
 import { auth } from '../FirebaseAPI/firebase'
 
-const AuthContext = React.createContext();
+const AuthContext = React.createContext()
 
 const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = React.useState({});
+  const [user, setUser] = React.useState({})
   auth.onAuthStateChanged(user => {
     if (user) {
       setUser(user)
@@ -22,9 +22,9 @@ const AuthContextProvider = ({ children }) => {
 
 
 const useAuthContext = () => {
-  const context = React.useContext(AuthContext);
+  const context = React.useContext(AuthContext)
   if (context === undefined) {
-    throw new Error('useAuthContext must be used with a AuthContextProvider');
+    throw new Error('useAuthContext must be used with a AuthContextProvider')
   } return context
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { updateCard } from '../contexts/FirebaseAPI/firebase';
+import { updateCard } from '../contexts/FirebaseAPI/firebase'
 
 const Header = styled.div`
   color: var(--yellow-hex);
@@ -43,27 +43,27 @@ const Card = (props) => {
     bid,
     id,
     updateContent,
-  } = props;
-  const [localContent, setLocalContent] = React.useState(content);
+  } = props
+  const [localContent, setLocalContent] = React.useState(content)
 
   React.useEffect(() => {
-    setLocalContent(content);
-  }, [content]);
+    setLocalContent(content)
+  }, [content])
 
   function plusOne() {
-    let currentVotes;
-    updateCard(type, bid, id).child('votes').on("value", snapshot => {
-      currentVotes = snapshot.val();
+    let currentVotes
+    updateCard(type, bid, id).child('votes').on('value', snapshot => {
+      currentVotes = snapshot.val()
     })
-    updateCard(type, bid, id).update({ votes: currentVotes + 1 });
+    updateCard(type, bid, id).update({ votes: currentVotes + 1 })
   }
   function onContentChange(e) {
-    const content = e.target.value;
-    setLocalContent(content);
+    const content = e.target.value
+    setLocalContent(content)
     document.getElementById(`${id}-content`).onkeypress = function (e) {
       if (e.keyCode === 13) {
-        e.preventDefault();
-        updateContent(type, bid, id, content);
+        e.preventDefault()
+        updateContent(type, bid, id, content)
       }
     }
   }

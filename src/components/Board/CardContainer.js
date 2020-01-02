@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Card from './Card';
+import Card from './Card'
 
 const CardContainerEnum = Object.freeze({
   WENT_WELL: 'went-well',
@@ -16,12 +16,12 @@ const CardContainer = (props) => {
     handleAddCard,
     bid,
     updateContent,
-  } = props;
-  const card = [];
+  } = props
+  const card = []
   if (cardObj !== null) {
     Object.values(cardObj).forEach(value =>
       card.push(value)
-    );
+    )
   }
   return (
     <section className={type}>
@@ -48,7 +48,7 @@ const CardContainer = (props) => {
   )
 }
 
-CardContainer.Variants = CardContainerEnum;
+CardContainer.Variants = CardContainerEnum
 CardContainer.propTypes = {
   title: PropTypes.string.isRequired,
   cardObj: PropTypes.objectOf(

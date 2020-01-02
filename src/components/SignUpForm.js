@@ -1,47 +1,47 @@
 import React from 'react'
 
-import { doCreateUserWithEmailAndPassword } from '../components/contexts/FirebaseAPI/firebase';
+import { doCreateUserWithEmailAndPassword } from '../components/contexts/FirebaseAPI/firebase'
 import Input from '../components/styled/Input'
 import Button from '../components/styled/Button'
-import Container from '../components/styled/Container';
-import Section from '../components/styled/Section';
-import Card from '../components/styled/Card';
+import Container from '../components/styled/Container'
+import Section from '../components/styled/Section'
+import Card from '../components/styled/Card'
 
 const SignUpForm = () => {
-  const [isLogingIn, setIsLoggingIn] = React.useState(false);
-  const [email, setEmail] = React.useState('');
-  const [fname, setFname] = React.useState('');
-  const [lname, setLname] = React.useState('');
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [error, setError] = React.useState('');
+  const [isLogingIn, setIsLoggingIn] = React.useState(false)
+  const [email, setEmail] = React.useState('')
+  const [fname, setFname] = React.useState('')
+  const [lname, setLname] = React.useState('')
+  const [username, setUsername] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [error, setError] = React.useState('')
 
   const onEmailChange = (e) => {
-    const { value } = e.target;
-    setEmail(value);
+    const { value } = e.target
+    setEmail(value)
   }
   const onUsernameChange = (e) => {
-    const { value } = e.target;
-    setUsername(value);
+    const { value } = e.target
+    setUsername(value)
   }
   const onFnameChange = (e) => {
-    const { value } = e.target;
-    setFname(value);
+    const { value } = e.target
+    setFname(value)
   }
   const onLnameChange = (e) => {
-    const { value } = e.target;
-    setLname(value);
+    const { value } = e.target
+    setLname(value)
   }
 
   const onPasswordChange = (e) => {
-    const { value } = e.target;
-    setPassword(value);
+    const { value } = e.target
+    setPassword(value)
   }
 
   const handleOnSubmit = (e) => {
-    e.preventDefault();
-    setIsLoggingIn(true);
-    doCreateUserWithEmailAndPassword(email, password, username, fname, lname, setError);
+    e.preventDefault()
+    setIsLoggingIn(true)
+    doCreateUserWithEmailAndPassword(email, password, username, fname, lname, setError)
   }
 
   return (
@@ -109,7 +109,7 @@ const SignUpForm = () => {
         </Card>
       </Section>
     </Container>
-  );
-};
+  )
+}
 
 export default SignUpForm

@@ -6,4 +6,4 @@ const Container = styled.section`
   width: 100%;
 `
 
-export default Container;
+export default Container

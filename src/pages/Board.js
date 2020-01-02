@@ -11,9 +11,9 @@ import {
   board,
   addCard,
   updateCard,
-} from '../components/contexts/FirebaseAPI/firebase';
-import Header from '../components/Header';
-import Input from '../components/styled/Input';
+} from '../components/contexts/FirebaseAPI/firebase'
+import Header from '../components/Header'
+import Input from '../components/styled/Input'
 import { ReactComponent as Icon } from '../icons/excel.svg'
 
 const Main = styled.main`
@@ -60,97 +60,97 @@ const H3 = styled.h3`
 `
 
 const Board = () => {
-  const [title, setTitle] = React.useState('');
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [isEditingTitle, setIsEditingTitle] = React.useState(false);
-  const [wentWellObj, setWentWellObj] = React.useState({});
-  const [needsImproveObj, setNeedsImproveObj] = React.useState({});
-  const [actionItemsObj, setActionItemsObj] = React.useState({});
+  const [title, setTitle] = React.useState('')
+  const [isLoading, setIsLoading] = React.useState(true)
+  const [isEditingTitle, setIsEditingTitle] = React.useState(false)
+  const [wentWellObj, setWentWellObj] = React.useState({})
+  const [needsImproveObj, setNeedsImproveObj] = React.useState({})
+  const [actionItemsObj, setActionItemsObj] = React.useState({})
 
-  const location = useLocation();
-  const bid = location.pathname.substring(7);
+  const location = useLocation()
+  const bid = location.pathname.substring(7)
 
   React.useMemo(() => {
     board(bid).on('value', snapshot => {
       setTitle(
         snapshot.val() ? snapshot.val().title : ''
-      );
-      setIsLoading(snapshot.val());
+      )
+      setIsLoading(snapshot.val())
     })
-  }, [bid]);
+  }, [bid])
 
   React.useMemo(() => {
-    wentWell(bid).on("value", snapshot => {
-      setWentWellObj(snapshot.val());
+    wentWell(bid).on('value', snapshot => {
+      setWentWellObj(snapshot.val())
     })
-  }, [bid]);
+  }, [bid])
 
   React.useMemo(() => {
-    needsImprove(bid).on("value", snapshot => {
-      setNeedsImproveObj(snapshot.val());
+    needsImprove(bid).on('value', snapshot => {
+      setNeedsImproveObj(snapshot.val())
     })
-  }, [bid]);
+  }, [bid])
 
   React.useMemo(() => {
-    actionItems(bid).on("value", snapshot => {
-      setActionItemsObj(snapshot.val());
+    actionItems(bid).on('value', snapshot => {
+      setActionItemsObj(snapshot.val())
     })
-  }, [bid]);
+  }, [bid])
 
   const handleAddCard = (type) => {
-    const newCardRef = board(bid).push();
-    const newCardId = newCardRef.key;
+    const newCardRef = board(bid).push()
+    const newCardId = newCardRef.key
     addCard(type, bid).child(newCardId).set({
       id: newCardId,
       content: '',
       votes: 0,
-    });
+    })
   }
 
   const handleOnTitleChange = (e) => {
-    const { value } = e.target;
-    setTitle(value);
+    const { value } = e.target
+    setTitle(value)
   }
 
   const editTitle = () => {
-    setIsEditingTitle(true);
+    setIsEditingTitle(true)
   }
 
   const saveTitle = () => {
     board(bid).update({
-      "title": title,
+      'title': title,
     })
-    setIsEditingTitle(false);
+    setIsEditingTitle(false)
   }
 
   const updateContent = (type, bid, id, content) => {
-    console.log(content);
+    console.log(content)
     updateCard(type, bid, id).update({
       content,
-    });
+    })
   }
 
   const wentWellArr = [['content', 'id', 'votes']]
   Object.values(wentWellObj).forEach(value => {
-    wentWellArr.push(Object.values(value));
+    wentWellArr.push(Object.values(value))
   })
   const needsImproveArr = [['content', 'id', 'votes']]
   Object.values(needsImproveObj).forEach(value => {
-    needsImproveArr.push(Object.values(value));
+    needsImproveArr.push(Object.values(value))
   })
   const actionItemsArr = [['content', 'id', 'votes']]
   Object.values(actionItemsObj).forEach(value => {
-    actionItemsArr.push(Object.values(value));
+    actionItemsArr.push(Object.values(value))
   })
   const handleExportFile = () => {
     const wb = XLSX.utils.book_new()
-    const wsWW = XLSX.utils.aoa_to_sheet(wentWellArr);
-    const wsNI = XLSX.utils.aoa_to_sheet(needsImproveArr);
-    const wsAI = XLSX.utils.aoa_to_sheet(actionItemsArr);
+    const wsWW = XLSX.utils.aoa_to_sheet(wentWellArr)
+    const wsNI = XLSX.utils.aoa_to_sheet(needsImproveArr)
+    const wsAI = XLSX.utils.aoa_to_sheet(actionItemsArr)
 
-    XLSX.utils.book_append_sheet(wb, wsWW, "Went Well")
-    XLSX.utils.book_append_sheet(wb, wsNI, "Needs Improve")
-    XLSX.utils.book_append_sheet(wb, wsAI, "Action Items")
+    XLSX.utils.book_append_sheet(wb, wsWW, 'Went Well')
+    XLSX.utils.book_append_sheet(wb, wsNI, 'Needs Improve')
+    XLSX.utils.book_append_sheet(wb, wsAI, 'Action Items')
     XLSX.writeFile(wb, `${title}.xlsx`)
   }
 
@@ -163,9 +163,9 @@ const Board = () => {
             <span role="img" aria-label="Green Check mark">✅</span>
           </EditTitleButton>
         ) : (
-            <EditTitleButton onClick={editTitle}>
-              <span role="img" aria-label="Pencil">✏️</span>
-            </EditTitleButton>
+          <EditTitleButton onClick={editTitle}>
+            <span role="img" aria-label="Pencil">✏️</span>
+          </EditTitleButton>
         )}
         <span>
           {isEditingTitle ? (

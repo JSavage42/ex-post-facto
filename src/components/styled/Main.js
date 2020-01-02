@@ -8,4 +8,4 @@ const Main = styled.main`
   overflow: hidden;
 `
 
-export default Main;
+export default Main

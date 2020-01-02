@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { teams, boards } from '../components/contexts/FirebaseAPI/firebase';
+import { teams, boards } from '../components/contexts/FirebaseAPI/firebase'
 import Header from '../components/Header'
 import Hourglass from '../components/styled/Hourglass'
-import Card from '../components/styled/Card';
-import Main from '../components/styled/Main';
-import Container from '../components/styled/Container';
-import Section from '../components/styled/Section';
+import Card from '../components/styled/Card'
+import Main from '../components/styled/Main'
+import Container from '../components/styled/Container'
+import Section from '../components/styled/Section'
 
 const LandingPage = () => {
   const [teamsObj, setTeamsObj] = React.useState({})
@@ -14,19 +14,19 @@ const LandingPage = () => {
 
   React.useMemo(() => {
     teams().on('value', snapshot => {
-      setTeamsObj(snapshot.val());
+      setTeamsObj(snapshot.val())
     })
   }, [setTeamsObj])
 
   React.useMemo(() => {
     boards().on('value', snapshot => {
-      setBoardObj(snapshot.val());
+      setBoardObj(snapshot.val())
     })
   }, [setBoardObj])
 
-  const isTeamsList = Object.values(teamsObj).length !== 0;
-  const isBoardsList = Object.values(boardObj).length !== 0;
-  const isLoading = !(isTeamsList || isBoardsList);
+  const isTeamsList = Object.values(teamsObj).length !== 0
+  const isBoardsList = Object.values(boardObj).length !== 0
+  const isLoading = !(isTeamsList || isBoardsList)
   return (
     <Main>
       <Header />
@@ -60,18 +60,18 @@ const LandingPage = () => {
         </Section>
         <Section>
           <Card>
-          <h3>Boards</h3>
-          <ul>
-            {isBoardsList ? (
-              Object.values(boardObj).map(value => (
-                <li key={value.bid}>
-                  <a href={`/board/${value.bid}`} alt={value.title}>
-                    {value.title}
-                  </a>
-                </li>
-              ))
-            ) : (<div>Loading ...</div>)}
-          </ul>
+            <h3>Boards</h3>
+            <ul>
+              {isBoardsList ? (
+                Object.values(boardObj).map(value => (
+                  <li key={value.bid}>
+                    <a href={`/board/${value.bid}`} alt={value.title}>
+                      {value.title}
+                    </a>
+                  </li>
+                ))
+              ) : (<div>Loading ...</div>)}
+            </ul>
           </Card>
         </Section>
       </Container>

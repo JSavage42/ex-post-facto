@@ -1,30 +1,30 @@
 import React from 'react'
 
-import { doSignInWithEmailAndPassword } from '../components/contexts/FirebaseAPI/firebase';
+import { doSignInWithEmailAndPassword } from '../components/contexts/FirebaseAPI/firebase'
 import Input from './styled/Input'
 import Button from './styled/Button'
-import Section from './styled/Section';
+import Section from './styled/Section'
 
 const Login = () => {
-  const [isLogingIn, setIsLoggingIn] = React.useState(false);
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [error, setError] = React.useState('');
+  const [isLogingIn, setIsLoggingIn] = React.useState(false)
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [error, setError] = React.useState('')
 
   const onEmailChange = (e) => {
-    const { value } = e.target;
-    setEmail(value);
+    const { value } = e.target
+    setEmail(value)
   }
 
   const onPasswordChange = (e) => {
-    const { value } = e.target;
-    setPassword(value);
+    const { value } = e.target
+    setPassword(value)
   }
 
   const handleOnSubmit = (e) => {
-    e.preventDefault();
-    setIsLoggingIn(true);
-    doSignInWithEmailAndPassword(email, password, setError);
+    e.preventDefault()
+    setIsLoggingIn(true)
+    doSignInWithEmailAndPassword(email, password, setError)
   }
 
 

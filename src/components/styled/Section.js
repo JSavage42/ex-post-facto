@@ -45,4 +45,4 @@ const Section = styled.section`
   }
 `
 
-export default Section;
+export default Section
