@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/JSavage42/ex-post-facto.svg?branch=master)](https://travis-ci.org/JSavage42/ex-post-facto)
-[![Heroku CI Status](https://expostfacto.herokuapp.com/last.svg)](https://dashboard.heroku.com/pipelines/{pipeline ID}/tests)
+
+[![Heroku CI Status](https://expostfacto.herokuapp.com/last.svg)](https://dashboard.heroku.com/pipelines/095a3533/tests)
 
 ## Available Scripts
 
