@@ -1,10 +1,14 @@
 {
   "name": "ex-post-facto",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha.0",
   "private": true,
   "license": "MIT",
   "description": "Agile Retro Board Tool",
-  "keywords": "agile, retro, scrum, tools, teams",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jsavage42/ex-post-facto.git"
+  },
+  "keywords": ["agile", "retro", "scrum", "tools", "teams"],
   "homepage": "https://expostfacto.dev",
   "author": "Jason A. Savage",
   "dependencies": {
