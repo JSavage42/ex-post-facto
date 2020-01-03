@@ -1,6 +1,29 @@
 {
-  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
   "rules": {
+    "boards": {
+      ".read": true,
+      ".write": "auth.uid != null"
+    },
+    "teams": {
+      ".read": true,
+      ".write": "auth.uid != null"
+    },
+    "users": {
+      ".read": true,
+      ".write": "auth.uid != null"
+    },
+    "action-items": {
+      ".read": true,
+      ".write": "auth.uid != null"
+    },
+    "needs-improve": {
+      ".read": true,
+      ".write": "auth.uid != null"
+    },
+    "went-well": {
+      ".read": true,
+      ".write": "auth.uid != null"
+    },
     ".read": false,
     ".write": false
   }
