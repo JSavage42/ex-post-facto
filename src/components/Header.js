@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const Title = styled.header`
   background: var(--header-bg-color);
@@ -18,7 +19,7 @@ const Title = styled.header`
 
 const Header = () => (
   <Title>
-    <a href="/home"><h1>Ex Post Facto</h1></a>
+    <Link to="/home"><h1>Ex Post Facto</h1></Link>
   </Title>
 )
 

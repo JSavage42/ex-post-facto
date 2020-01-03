@@ -2,12 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { useLocation } from 'react-router-dom'
 
-import { onUpdateProfile, users } from '../components/contexts/FirebaseAPI/firebase'
+import { onUpdateProfile, users } from '../components/contexts/firebase'
 import Header from '../components/Header'
 import Input from '../components/styled/Input'
 import Button from '../components/styled/Button'
 import Card from '../components/styled/Card'
-import { useAuthContext } from '../components/contexts/AuthContext'
+import { useAuthenticationContext } from '../components/contexts/Authentication'
 
 const Main = styled.main`
   background-color: var(--bg-color);
@@ -36,7 +36,7 @@ const Section = styled.section`
 
 const ProfilePage = props => {
   const [userObj, setUserObj] = React.useState({})
-  const user = useAuthContext()
+  const user = useAuthenticationContext()
   const location = useLocation()
   const uid = location.pathname.substring(5)
   console.log(userObj)

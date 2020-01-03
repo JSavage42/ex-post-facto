@@ -8,10 +8,17 @@
     "type": "git",
     "url": "https://github.com/jsavage42/ex-post-facto.git"
   },
-  "keywords": ["agile", "retro", "scrum", "tools", "teams"],
+  "keywords": [
+    "agile",
+    "retro",
+    "scrum",
+    "tools",
+    "teams"
+  ],
   "homepage": "https://expostfacto.dev",
   "author": "Jason A. Savage",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "firebase": "^7.6.1",
     "firebaseui": "^4.4.0",
     "http2": "^3.3.7",

@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
 
+import { doSignInWithEmailAndPassword } from '../components/contexts/firebase'
 import Login from '../components/Login'
 
 const Main = styled.main`
@@ -38,13 +40,36 @@ const Main = styled.main`
   }
 `
 
-const LoginPage = () => (
-  <Main>
-    <div className="title">
-      <h1>Ex Post Facto</h1>
-    </div>
-    <Login className="login" />
-  </Main>
-)
+const LoginPage = () => {
+  const [isLogingIn, setIsLoggingIn] = React.useState(false)
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [error, setError] = React.useState('')
+
+  const onEmailChange = (e) => setEmail(e.target.value)
+  const onPasswordChange = (e) => setPassword(e.target.value)
+  const handleOnSubmit = (e) => {
+    e.preventDefault()
+    setIsLoggingIn(true)
+    doSignInWithEmailAndPassword(email, password, setError)
+  }
+  return (
+    <Main>
+      <div className="title">
+        <h1>Ex Post Facto</h1>
+      </div>
+      <Login
+        className="login"
+        onEmailChange={onEmailChange}
+        onPasswordChange={onPasswordChange}
+        handleOnSubmit={handleOnSubmit}
+        error={error}
+        email={email}
+        password={password}
+        isLogingIn={isLogingIn}
+      />
+    </Main>
+  )
+}
 
 export default LoginPage

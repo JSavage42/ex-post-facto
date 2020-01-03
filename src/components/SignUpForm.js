@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { doCreateUserWithEmailAndPassword } from '../components/contexts/FirebaseAPI/firebase'
+import { doCreateUserWithEmailAndPassword } from '../components/contexts/firebase'
 import Input from '../components/styled/Input'
 import Button from '../components/styled/Button'
 import Container from '../components/styled/Container'

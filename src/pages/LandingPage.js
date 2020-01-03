@@ -1,16 +1,20 @@
 import React from 'react'
 
-import { teams, boards } from '../components/contexts/FirebaseAPI/firebase'
+import { teams, boards } from '../components/contexts/firebase'
 import Header from '../components/Header'
 import Hourglass from '../components/styled/Hourglass'
-import Card from '../components/styled/Card'
 import Main from '../components/styled/Main'
 import Container from '../components/styled/Container'
 import Section from '../components/styled/Section'
+import { useAuthorizationStateContext } from '../components/contexts/Authorization'
+import BoardsList from '../components/BoardsList'
+import TeamsList from '../components/TeamsList'
+import AdminCard from '../components/AdminCard'
 
-const LandingPage = () => {
+const LandingPage = ({ currentUser }) => {
   const [teamsObj, setTeamsObj] = React.useState({})
   const [boardObj, setBoardObj] = React.useState({})
+  const { userAuthorization } = useAuthorizationStateContext()
 
   React.useMemo(() => {
     teams().on('value', snapshot => {
@@ -35,45 +39,9 @@ const LandingPage = () => {
       </Section>
       <Container className={isLoading ? '-isLoading' : ''}>
         {isLoading && <Hourglass />}
-        <Section>
-          <Card>
-            <h3>Admin</h3>
-            <a href="/admin">Go to Admin Dashboard</a>
-          </Card>
-        </Section>
-        <Section>
-          <Card>
-            <h3>Teams</h3>
-            <p>{isTeamsList ? 'Click a team to join' : ''}</p>
-            <ul>
-              {isTeamsList ? (
-                Object.values(teamsObj).map(value => (
-                  <li key={value.tid}>
-                    <a href={`/team/${value.tid}`} alt={value.name}>
-                      {value.name}
-                    </a>
-                  </li>
-                ))
-              ) : (<div>Loading ...</div>)}
-            </ul>
-          </Card>
-        </Section>
-        <Section>
-          <Card>
-            <h3>Boards</h3>
-            <ul>
-              {isBoardsList ? (
-                Object.values(boardObj).map(value => (
-                  <li key={value.bid}>
-                    <a href={`/board/${value.bid}`} alt={value.title}>
-                      {value.title}
-                    </a>
-                  </li>
-                ))
-              ) : (<div>Loading ...</div>)}
-            </ul>
-          </Card>
-        </Section>
+        {userAuthorization === 'ADMIN' && <AdminCard />}
+        <TeamsList isList={isTeamsList} obj={teamsObj} />
+        <BoardsList isList={isBoardsList} obj={boardObj} />
       </Container>
     </Main>
   )

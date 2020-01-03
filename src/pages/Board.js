@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 import XLSX from 'xlsx'
 
 import CardsSection from '../components/Board/CardsSection'
@@ -11,7 +11,7 @@ import {
   board,
   addCard,
   updateCard,
-} from '../components/contexts/FirebaseAPI/firebase'
+} from '../components/contexts/firebase'
 import Header from '../components/Header'
 import Input from '../components/styled/Input'
 import { ReactComponent as Icon } from '../icons/excel.svg'
@@ -131,15 +131,15 @@ const Board = () => {
   }
 
   const wentWellArr = [['content', 'id', 'votes']]
-  Object.values(wentWellObj).forEach(value => {
+  wentWellObj && Object.values(wentWellObj).forEach(value => {
     wentWellArr.push(Object.values(value))
   })
   const needsImproveArr = [['content', 'id', 'votes']]
-  Object.values(needsImproveObj).forEach(value => {
+  needsImproveObj && Object.values(needsImproveObj).forEach(value => {
     needsImproveArr.push(Object.values(value))
   })
   const actionItemsArr = [['content', 'id', 'votes']]
-  Object.values(actionItemsObj).forEach(value => {
+  actionItemsObj && Object.values(actionItemsObj).forEach(value => {
     actionItemsArr.push(Object.values(value))
   })
   const handleExportFile = () => {
@@ -179,7 +179,7 @@ const Board = () => {
         </ExcelExportButton>
       </BoardTitle>
       {title.length === 0 && !isLoading ? (
-        <H3>No board exists. <a href="/home">Go to Dashboard</a></H3>
+        <H3>No board exists. <Link to="/home">Go to Dashboard</Link></H3>
       ) : (
         <CardsSection
           bid={bid}

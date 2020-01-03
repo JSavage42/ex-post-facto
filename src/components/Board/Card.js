@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { updateCard } from '../contexts/FirebaseAPI/firebase'
+import { updateCard } from '../contexts/firebase'
 
 const Header = styled.div`
   color: var(--yellow-hex);

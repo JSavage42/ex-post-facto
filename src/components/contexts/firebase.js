@@ -3,44 +3,37 @@ import 'firebase/auth'
 import 'firebase/database'
 import 'firebase/storage'
 
-const API_KEY = 'AIzaSyCViLMLlNGLaNixHHXdzTAPuFnZU60fBAY'
-const AUTH_DOMAIN = 'ex-post-facto-dev.firebaseapp.com'
-const DATABASE_URL = 'https://ex-post-facto-dev.firebaseio.com'
-const PROJECT_ID = 'ex-post-facto-dev'
-const STORAGE_BUCKET = 'ex-post-facto-dev.appspot.com'
-const MESSAGING_SENDER_ID = '29625557107'
-const APP_ID = '1:29625557107:web:6323c685ba8f51ffcbca06'
-
 const config = {
-  apiKey: API_KEY,
-  authDomain: AUTH_DOMAIN,
-  databaseURL: DATABASE_URL,
-  projectId: PROJECT_ID,
-  storageBucket: STORAGE_BUCKET,
-  messagingSenderId: MESSAGING_SENDER_ID,
-  appId: APP_ID,
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
 }
 
 firebase.initializeApp(config)
 
 const auth = firebase.auth()
 const db = firebase.database()
-
 const googleProvider = new firebase.auth.GoogleAuthProvider()
-
 
 // Users API
 const doCreateUserWithEmailAndPassword = (email, password, username, fname, lname, setError) => {
   auth.createUserWithEmailAndPassword(email, password)
     .then(authUser => {
+      const { uid } = authUser.user
       const displayName = `${fname} ${lname}`
+      const role = 'USER'
       return db.ref(`users/${authUser.user.uid}`).set({
-        uid: authUser.user.uid,
+        uid,
         email,
         username,
         fname,
         lname,
         displayName,
+        role,
       })
     })
     .catch(err => {
@@ -51,25 +44,23 @@ const doCreateUserWithEmailAndPassword = (email, password, username, fname, lnam
 }
 const doSignInWithEmailAndPassword = (email, password, setError) => {
   auth.signInWithEmailAndPassword(email, password)
-    .then(window.history.pushState({}, {}, '/home'))
-    .catch(err => {
-      const { code, message } = err
-      setError(message)
-      console.error(`Error ${code} -- ${message}`)
+    .catch((err) => {
+      const errCode = err.code
+      const errMessage = err.message
+      setError(errMessage)
+      console.error(`Error ${errCode} -- ${errMessage}`)
     })
 }
-const doSignInWithGoogle = () => auth.signInWithPopup(googleProvider)
 
+const doSignInWithGoogle = () => auth.signInWithPopup(googleProvider)
 const doSignOut = () => auth.signOut()
 const doPasswordReset = email => auth.sendPasswordResetEmail(email)
 const doEmailVerification = () => auth.currentUser.sendEmailVerification({
   url: process.env.CONFIRMATION_EMAIL_REDIRECT,
 })
-
 const onUpdateProfile = (user, displayName) => user.updateProfile({
   displayName,
 })
-
 const users = () => db.ref('users')
 
 // Board API

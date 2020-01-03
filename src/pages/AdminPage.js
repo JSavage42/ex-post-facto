@@ -1,15 +1,15 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { team, teams, board, users, } from '../components/contexts/FirebaseAPI/firebase'
+import { team, teams, board, users, } from '../components/contexts/firebase'
 import Header from '../components/Header'
-import Input from '../components/styled/Input'
-import Button from '../components/styled/Button'
-import Card from '../components/styled/Card'
 import Main from '../components/styled/Main'
 import Container from '../components/styled/Container'
 import Section from '../components/styled/Section'
-import { useAuthContext } from '../components/contexts/AuthContext'
+import { useAuthenticationContext } from '../components/contexts/Authentication'
+import CreateTeamCard from '../components/CreateTeamCard'
+import CreateBoardCard from '../components/CreateBoardCard'
+import UsersList from '../components/UsersList'
 
 const AdminPage = () => {
   const [teamName, setTeamName] = React.useState('')
@@ -19,7 +19,7 @@ const AdminPage = () => {
   const [boardError, setBoardError] = React.useState()
   const [teamsObj, setTeamsObj] = React.useState({})
   const [usersObj, setUsersObj] = React.useState({})
-  const user = useAuthContext()
+  const user = useAuthenticationContext()
   const history = useHistory()
 
   React.useMemo(() => {
@@ -89,90 +89,24 @@ const AdminPage = () => {
         <h2>Admin Dashboard</h2>
       </Section>
       <Container>
-        <Section>
-          <Card>
-            <h3>Team</h3>
-            {teamError && <p>{teamError}</p>}
-            <form onSubmit={handleCreateTeam}>
-              <Input
-                placeholder="Team Name"
-                name="teamName"
-                id="teamName"
-                type="text"
-                value={teamName}
-                onChange={onTeamNameChange}
-              />
-              <Button
-                type="submit"
-                title="Create"
-                variant="emphasis"
-              />
-            </form>
-            <ul>
-              {isTeamsList ? (
-                Object.values(teamsObj).map(value => (
-                  <li key={value.tid}>
-                    <a href={`/team/${value.tid}`} alt={value.name}>
-                      {value.name}
-                    </a>
-                  </li>
-                ))
-              ) : (<div>Loading ...</div>)}
-            </ul>
-          </Card>
-        </Section>
-        <Section>
-          <Card>
-            <h3>Board</h3>
-            {boardError && <p>{boardError}</p>}
-            <form onSubmit={handleCreateBoard}>
-              <Input
-                placeholder="Board Name"
-                name="boardName"
-                id="boardName"
-                type="text"
-                value={boardName}
-                onChange={onBoardNameChange}
-              />
-              <div className="select">
-                <select onChange={onBoardTeamChange}>
-                  {isTeamsList && (
-                    Object.values(teamsObj).map(value => (
-                      <option
-                        key={value.tid}
-                        value={value.tid}
-                      >
-                        {value.name}
-                      </option>
-                    ))
-                  )}
-                </select>
-              </div>
-              <Button
-                type="submit"
-                title="Create"
-                variant="emphasis"
-              />
-            </form>
-          </Card>
-        </Section>
-        {user && (
-          <Section>
-            <Card>
-              <h3>Users</h3>
-              <ul>
-                {isUsersList ? (
-                  Object.values(usersObj).map(value => (
-                    <li key={value.bid}>
-                      <a href={`/user/${value.uid}`} alt={value.username}>
-                        {value.displayName}
-                      </a>
-                    </li>
-                  ))
-                ) : (<div>Loading ...</div>)}
-              </ul>
-            </Card>
-          </Section>
+        <CreateTeamCard
+          error={teamError}
+          handleCreate={handleCreateTeam}
+          name={teamName}
+          onNameChange={onTeamNameChange}
+          isList={isTeamsList}
+          obj={teamsObj}
+        />
+        <CreateBoardCard
+          error={boardError}
+          handleCreate={handleCreateBoard}
+          name={boardName}
+          onNameChange={onBoardNameChange}
+          onTeamChange={onBoardTeamChange}
+          isList={isTeamsList}
+          obj={teamsObj}
+        />
+        {user && <UsersList isList={isUsersList} obj={usersObj} />}
         )}
       </Container>
     </Main>

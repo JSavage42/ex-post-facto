@@ -1,12 +1,12 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 
 import {
   team,
   teams,
   board,
   boards,
-} from '../components/contexts/FirebaseAPI/firebase'
+} from '../components/contexts/firebase'
 import Header from '../components/Header'
 import Input from '../components/styled/Input'
 import Button from '../components/styled/Button'
@@ -38,7 +38,6 @@ const TeamPage = () => {
     boards().on('value', snapshot => {
       Object.values(snapshot.val()).forEach(value => {
         if (value.team === tid) {
-          console.log('got one', value)
           boardList.push(value)
         }
       })
@@ -118,9 +117,9 @@ const TeamPage = () => {
               {isBoardsList ? (
                 Object.values(boardObj).map(value => (
                   <li key={value.bid}>
-                    <a href={`/board/${value.bid}`} alt={value.title}>
+                    <Link to={`/board/${value.bid}`} alt={value.title}>
                       {value.title}
-                    </a>
+                    </Link>
                   </li>
                 ))
               ) : (<div>Loading ...</div>)}
@@ -134,9 +133,9 @@ const TeamPage = () => {
               {members &&
                 Object.values(members).map(member => (
                   <li key={member.uid}>
-                    <a href={`/user/${member.uid}`} alt={member.displayName}>
+                    <Link to={`/user/${member.uid}`} alt={member.displayName}>
                       {member.username}
-                    </a>
+                    </Link>
                   </li>
                 ))}
             </ul>
