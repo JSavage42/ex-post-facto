@@ -1,0 +1,85 @@
+:root {
+  --fancy-font: 800 8rem 'https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap', serif;
+  --header-font: 800 3rem 'https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap', serif;
+  --small-header-font: 800 2rem 'https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap', serif;
+  /* Color Theme Swatches in Hex */
+  --black-hex: #28364A;
+  --white-hex: #fff7eb;
+  --yellow-hex: #F7C45F;
+  --red-hex: #D65353;
+  --green-hex: #2D5C5C;
+
+  /* Color Theme Swatches in RGBA */
+  --black-rgba: rgba(40,54,74, 0.3);
+  --white-rgba: rgba(255,238,214, 0.1);
+  --yellow-rgba: rgba(247,196,95, 1);
+  --red-rgba: rgba(214,83,83, 1);
+  --green-rgba: rgba(45,92,92, 1);
+
+  /* Color Theme Swatches in HSLA */
+  --black-hsla: hsla(215, 29, 22, 1);
+  --white-hsla: hsla(35, 100, 91, 1);
+  --yellow-hsla: hsla(39, 90, 67, 1);
+  --red-hsla: hsla(0, 61, 58, 1);
+  --green-hsla: hsla(180, 34, 26, 1);
+  --db-bs: rgba(40,54,74, 0.7);
+  --db-bs-lighter: rgba(0,0,0,0.3);
+  --bg-color: var(--white-hex);
+  --header-bg-color: var(--white-hex);
+  --header-font-color: var(--red-hex);
+  --card-bg-color: var(--black-hex);
+  --h2-color: var(--red-hex);
+  --h3-color: var(--yellow-hex);
+}
+
+.-shown {
+  display: inline-block;
+}
+
+.-hidden {
+  display: none;
+}
+
+.icon {
+  background: transparent;
+}
+
+.button {
+  border: none;
+  border-radius: 15px;
+  display: inline;
+  font-size: 2rem;
+  margin: 0.45rem;
+  padding: 0.75rem;
+}
+
+.button.emphasis {
+  background: var(--yellow-hex);
+  color: var(--green-hex);
+}
+
+.button.emphasis:hover {
+  background: darken(#f3a712, 5);
+}
+
+.button.reset:hover {
+  background: var(--green-hex);
+}
+
+.button.neutral {
+  background: var(--white-hex);
+  color: var(--green-hex);
+}
+
+.button.neutral:hover {
+  background: var(--white-hex);
+  color: var(--green-hex)
+}
+
+fieldset {
+  border: none;
+}
+
+legend {
+  font-size: 1.6rem;
+}

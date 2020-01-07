@@ -1,15 +1,38 @@
 version: '3'
 
 services:
-  dev:
-    container_name: epf
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - '.:/app'
-      - '/app/node_modules'
-    ports:
-      - 3000:3000
+  server:
+    container_name: epf-server
+    build: ./server
     environment:
+      - MONGO_URI=${MONGO_URI}
+      - PORT=${PORT}
       - NODE_ENV=development
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - ./server:/app/server
+    command: nodemon -L server.js
+    links:
+      - mongo
+    restart: always
+  client:
+    container_name: epf-client
+    build: ./client
+    environment:
+      - REACT_APP_PORT=${REACT_APP_PORT}
+    ports:
+      - ${REACT_APP_PORT}:${REACT_APP_PORT}
+    volumes:
+      - ./client:/app/client
+      - ./client/public:/app/client/public
+    links:
+      - server
+    command: npm run start
+    restart: always
+  mongo:
+    container_name: epf-db
+    image: mongo
+    ports:
+      - ${MONGO_PORT}:${MONGO_PORT}
+    restart: always
