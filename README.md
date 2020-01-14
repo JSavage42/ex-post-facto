@@ -1,5 +1,4 @@
 ![Version](https://img.shields.io/github/package-json/v/jsavage42/ex-post-facto?&style=for-the-badge)<br/>
-![Build Status](https://img.shields.io/travis/jsavage42/ex-post-facto?logo=travis&style=for-the-badge)<br/>
 ![LICENSE](https://img.shields.io/github/license/jsavage42/ex-post-facto?style=for-the-badge)<br/>
 ![React Version](https://img.shields.io/github/package-json/dependency-version/jsavage42/ex-post-facto/react?logo=react&style=for-the-badge)<br/>
 ![Docker](https://img.shields.io/docker/cloud/build/jsavage4289/expostfacto?logo=docker&style=for-the-badge)<br/>

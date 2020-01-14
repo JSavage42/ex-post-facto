@@ -18,7 +18,7 @@ const Title = styled.header`
 
 const Header = () => (
   <Title>
-    <Link to="/home"><h1>Ex Post Facto</h1></Link>
+    <Link to="/"><h1>Ex Post Facto</h1></Link>
   </Title>
 )
 

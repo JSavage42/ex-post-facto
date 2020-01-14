@@ -63,6 +63,7 @@ const Board = () => {
 
   React.useMemo(() => {
     getBoard(bid).then(res => {
+      console.log(res)
       setTitle(res.data.title)
       setIsLoading(res)
     })

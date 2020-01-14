@@ -12,7 +12,7 @@ const BoardsList = ({ isList, obj }) => (
         {isList ? (
           Object.values(obj).map(value => (
             <li key={value._id}>
-              <Link to={`/board/${value._id}`} alt={value.title}>
+              <Link to={`/board/${value.id}`} alt={value.title}>
                 {value.title}
               </Link>
             </li>

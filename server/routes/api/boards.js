@@ -1,39 +1,43 @@
 const express = require('express')
 const router = express.Router()
 const debug = require('debug')('app:boardsApi')
+const r = require('rethinkdb')
 
-const Board = require('../../models/Board')
+const boards = r.table('boards')
+const cards = r.table('cards')
 
 // * Boards (VERB - CRUD -- Description)
 // ** POST - CREATE -- Creates a new board.
 router.post('/create', (req, res) => {
   const { title, team } = req.body
-  const newBoard = new Board({
+  const newBoard = ({
     title,
     team,
+    cards: [],
   })
-  newBoard.save().then(board => res.json(board)).catch(e => debug(e))
+  boards.insert(newBoard).run(connection).then(board => res.json(board)).catch(e => debug(e))
 })
 
 // ** GET - READ(ALL) -- Finds all boards.
 router.get('/', (req, res) => {
-  Board.find({}).then(boards => {
-    res.json(boards)
+  boards.run(connection).then(boards => {
+    boards.toArray().then(board => res.json(board))
   })
 })
 
 // ** GET - READ -- Finds a board from bid.
 router.get('/:bid', (req, res) => {
-  Board.findById(req.params.bid).then(board => {
+  const { bid } = req.params
+  boards.get(bid).run(connection).then(board => {
     res.json(board)
   }).catch(e => debug(e))
 })
 
 // ** GET -READ(FROM TEAM ID) -- Finds boards by tid.
 router.get('/team/:tid', (req, res) => {
-  const { tid } = req.param
-  Board.find({ team: `${req.params.tid}` }).then(board => {
-    res.json(board)
+  const { tid } = req.params
+  boards.getAll(tid, {index: 'team'}).run(connection).then(boards => {
+    boards.toArray().then(board => res.json(board))
   }).catch(e => debug(e))
 })
 
@@ -41,36 +45,32 @@ router.get('/team/:tid', (req, res) => {
 router.post('/:bid/update', (req, res) => {
   const { bid } = req.params
   const { title, team } = req.body
-  Board.findById(bid)
-    .then(board => {
-      if (title !== undefined) {
-        if (team === undefined) {
-          board.title = title
-          board.save()
-          res.json({ board })
-        } else {
-          board.title = title
-          board.team = team
-          board.save()
-          res.json({ board })
-        }
-      } else {
-        if (team !== undefined) {
-          board.team = team
-          board.save()
-          res.json({ board })
-        } else {
-          res.json({ message: 'No content to update' })
-        }
-      }
-    })
-    .catch(e => debug(e))
+  if (title !== undefined) {
+    if (team === undefined) {
+      boards.get(bid).update({ title }).run(connection)
+        .then(board => res.json({ board }))
+        .catch(e => debug(e))
+    } else {
+      boards.get(bid).update({ title, team }).run(connection)
+        .then(board => res.json({ board }))
+        .catch(e => debug(e))
+    }
+  } else {
+    if (team !== undefined) {
+      boards.get(bid).update({ team }).run(connection)
+        .then(board => res.json({ board }))
+        .catch(e => debug(e))
+    } else {
+      res.json({ message: 'No content to update' })
+    }
+  }
 })
 
 // ** DELETE - DELETE -- Deletes a board from bid.
 router.delete('/:bid', (req, res) => {
-  Board.deleteOne({ _id: req.params.bid }).then(() => {
-    res.json({ message: `Deleted board ${req.params.bid}`})
+  const { bid } = req.params
+  boards.get(bid).delete().run(connection).then(() => {
+    res.json({ message: `Deleted board ${bid}` })
   }).catch(e => debug(e))
 })
 
@@ -79,76 +79,67 @@ router.delete('/:bid', (req, res) => {
 router.post('/:bid/add-card', (req, res) => {
   const { type } = req.body
   const { bid } = req.params
-  Board.findById(bid).then(board => {
-    board.cards.push({ type })
-    board.save()
-    res.json({ board })
+  const newCard = ({
+    bid,
+    type,
+    content: '',
+    votes: 0,
+  })
+  cards.insert(newCard).run(connection).then(nC => {
+    res.json(nC)
   })
 })
 
 // ** GET - READ(ALL) -- Finds all cards from bid.
 router.get('/:bid/cards', (req, res) => {
   const { bid } = req.params
-  Board.findById(bid).then(board => {
-    res.json(board.cards)
+  cards.getAll(bid, {index: 'bid'}).run(connection).then(cards => {
+    cards.toArray().then(card => {
+      res.json(card)
+    })
   }).catch(e => debug(e))
 })
 
 // ** GET - READ(TYPE) -- Finds all cards from board with bid and type of cards.
 router.get('/:bid/cards/:type', (req, res) => {
   const { bid, type } = req.params
-  Board.findById(bid).then(board => {
-    const cards = board.cards.filter(card => card.type === type)
-    res.json(cards)
-  }).catch(e => debug(e))
+  cards.filter(r.row('bid').eq(bid).and(r.row('type').eq(type))).run(connection).then(cards => {
+    cards.toArray().then(result => res.json(result))
+  })
 })
 
 // ** GET - READ -- Finds a card from cid.
-router.get('/:bid/:cid', (req, res) => {
-  const { bid, cid } = req.params
-  Board.findById(bid).then(board => {
-    res.json(board.cards.id(cid))
+router.get('/cards/:cid', (req, res) => {
+  const { cid } = req.params
+  cards.get(cid).run(connection).then(card => {
+    res.json(card)
   }).catch(e => debug(e))
 })
 
 // ** POST - UPDATE -- Updates a card from cid.
-router.post('/:bid/:cid/update', (req, res) => {
-  const { bid, cid } = req.params
+router.post('/cards/:cid/update', (req, res) => {
+  const { cid } = req.params
   const { content, votes } = req.body
-  Board.findById(bid)
-    .then(board => {
-      const card = board.cards.id(cid)
-      if (content !== undefined) {
-        if (votes === undefined) {
-          card.content = content
-          board.save()
-          res.json({ card })
-        } else {
-          card.content = content
-          card.votes = votes
-          board.save()
-          res.json({ card })
-        }
-      } else {
-        if (votes !== undefined) {
-          card.votes = votes
-          board.save()
-          res.json({ card })
-        } else {
-          res.json({ message: 'No content to update' })
-        }
-      }
-    })
-    .catch(e => debug(e))
+  if (content !== undefined) {
+    if (votes === undefined) {
+      cards.get(cid).update({content}).run(connection).then(card => res.json({ card }))
+    } else {
+      cards.get(cid).update({ content, votes }).run(connection).then(card => res.json({ card }))
+    }
+  } else {
+    if (votes !== undefined) {
+      cards.get(cid).update({ votes }).run(connection).then(card => res.json({ card }))
+    } else {
+      res.json({ message: 'No content to update' })
+    }
+  }
 })
 
 // ** DELETE - DELETE -- Deletes a card from cid.
-router.delete('/:bid/:cid', (req, res) => {
-  const { bid, cid } = req.params
-  Board.findById(bid).then(board => {
-    board.cards.id(cid).remove()
-    board.save()
-    res.json({ board })
+router.delete('/cards/:cid', (req, res) => {
+  const { cid } = req.params
+  cards.get(cid).delete().run(connection).then(() => {
+    res.json({ message: 'Card has been deleted'})
   }).catch(e => debug(e))
 })
 

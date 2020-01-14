@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { GET, POST, HEADERS } from '../constants'
+import { GET, POST, HEADERS, database as db } from '../constants'
 
-const LOCAL_URL = `${process.env.MONGO_URL}:${process.env.MONGO_PORT}/api/users`
+const LOCAL_URL = `http://${db.host}:${db.port}/api/users`
 
 export const getUsers = () => (
   axios({

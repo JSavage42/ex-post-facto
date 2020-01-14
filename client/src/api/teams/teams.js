@@ -1,6 +1,7 @@
 import axios from 'axios'
-import { GET, HEADERS } from '../constants'
-const LOCAL_URL = `${process.env.MONGO_URL}:${process.env.MONGO_PORT}/api/teams`
+import { GET, HEADERS, database as db } from '../constants'
+
+const LOCAL_URL = `http://${db.host}:${db.port}/api/teams`
 
 export const getTeams = () => (
   axios({

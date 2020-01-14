@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run server-build && npm run client-build",
     "server-build": "cd server && npm i --silent",
-    "client-build": "cd client && npm i --silent",
+    "client-build": "cd client && npm i --silent && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
