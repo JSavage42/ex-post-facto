@@ -24,8 +24,8 @@ const CreateBoardCard = ({ error, handleCreate, name, onNameChange, onTeamChange
             {isList && (
               Object.values(obj).map(value => (
                 <option
-                  key={value._id}
-                  value={value._id}
+                  key={value.id}
+                  value={value.id}
                 >
                   {value.name}
                 </option>

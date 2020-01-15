@@ -6,13 +6,14 @@ import Section from '../components/styled/Section'
 import CreateTeamCard from '../components/CreateTeamCard'
 import CreateBoardCard from '../components/CreateBoardCard'
 import UsersList from '../components/UsersList'
-import { getTeams } from '../api/teams/teams'
-import { getUsers } from '../api/users/users'
+import { getTeams, createTeam } from '../api/teams'
+import { getUsers } from '../api/users'
+import { createBoard } from '../api/boards'
 
 const AdminPage = () => {
   const [teamName, setTeamName] = React.useState('')
   const [boardName, setBoardName] = React.useState('')
-  const [boardTeamName, setBoardTeamName] = React.useState('')
+  const [boardTeamId, setBoardTeamId] = React.useState('')
   const [teamError, setTeamError] = React.useState('')
   const [boardError, setBoardError] = React.useState()
   const [teamsObj, setTeamsObj] = React.useState({})
@@ -26,7 +27,6 @@ const AdminPage = () => {
 
   React.useMemo(() => {
     getUsers().then(res => {
-      console.log(res.data)
       setUsersObj(res.data)
     })
   }, [])
@@ -41,15 +41,16 @@ const AdminPage = () => {
     setBoardName(value)
   }
 
-  const onBoardTeamChange = (e) => {
+  const onTeamChange = (e) => {
     const { value } = e.target
-    setBoardTeamName(value)
+    setBoardTeamId(value)
   }
 
   function handleCreateTeam(e) {
     e.preventDefault()
+    console.log(teamName)
     if (teamName !== '') {
-      console.log(teamName)
+      createTeam(teamName)
     } else {
       setTeamError('Please enter a name')
     }
@@ -58,8 +59,7 @@ const AdminPage = () => {
   function handleCreateBoard(e) {
     e.preventDefault()
     if (boardName !== '') {
-      console.log(boardName)
-      console.log(boardTeamName)
+      createBoard(boardName, boardTeamId)
     } else {
       setBoardError('Please enter a name')
     }
@@ -88,7 +88,7 @@ const AdminPage = () => {
           handleCreate={handleCreateBoard}
           name={boardName}
           onNameChange={onBoardNameChange}
-          onTeamChange={onBoardTeamChange}
+          onTeamChange={onTeamChange}
           isList={isTeamsList}
           obj={teamsObj}
         />

@@ -29,8 +29,8 @@ const CreateTeamCard = ({ error, handleCreate, name, onNameChange, isList, obj }
       <ul>
         {isList ? (
           Object.values(obj).map(value => (
-            <li key={value._id}>
-              <Link to={`/team/${value._id}`} alt={value.name}>
+            <li key={value.id}>
+              <Link to={`/team/${value.id}`} alt={value.name}>
                 {value.name}
               </Link>
             </li>

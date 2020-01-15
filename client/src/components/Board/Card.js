@@ -38,8 +38,7 @@ const Card = (props) => {
   const {
     content,
     votes,
-    bid,
-    _id,
+    id,
     updateContent,
     plusOne,
   } = props
@@ -50,15 +49,15 @@ const Card = (props) => {
   }, [content])
 
   function plusOneVote() {
-    plusOne(bid, _id, votes + 1)
+    plusOne(id, votes + 1)
   }
   function onContentChange(e) {
     const content = e.target.value
     setLocalContent(content)
-    document.getElementById(`${_id}-content`).onkeypress = function (e) {
+    document.getElementById(`${id}-content`).onkeypress = function (e) {
       if (e.keyCode === 13) {
         e.preventDefault()
-        updateContent(bid, _id, content)
+        updateContent(id, content)
       }
     }
   }
@@ -70,9 +69,9 @@ const Card = (props) => {
         <ThumbsUp onClick={plusOneVote}>+1</ThumbsUp>
       </Header>
       <Content
-        form={`${_id}-form-content`}
-        name={`${_id}-content`}
-        id={`${_id}-content`}
+        form={`${id}-form-content`}
+        name={`${id}-content`}
+        id={`${id}-content`}
         onChange={onContentChange}
         value={localContent}
       >
@@ -84,15 +83,15 @@ const Card = (props) => {
 Card.propTypes = {
   content: PropTypes.string.isRequired,
   votes: PropTypes.number.isRequired,
-  _id: PropTypes.oneOfType([
+  id: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
 }
-Card.defaultPropts = {
+Card.defaultProps = {
   content: '',
   votes: 0,
-  _id: 'unique-id'
+  id: 'unique-id'
 }
 
 export default Card

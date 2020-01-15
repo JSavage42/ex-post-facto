@@ -23,15 +23,15 @@ const CardContainer = ({
       <button onClick={() => handleAddCard(type)}>Add Card</button>
     </header>
     <article className="card-container">
-      {cardArray && cardArray.length >= 1 && cardArray.map(({ content, votes, _id }) => {
+      {cardArray && cardArray.length >= 1 && cardArray.map(({ content, votes, id }) => {
         return (
           <Card
             bid={bid}
             type={type}
             content={content}
             votes={votes}
-            _id={_id}
-            key={_id}
+            id={id}
+            key={id}
             updateContent={updateContent}
             plusOne={plusOne}
           />
@@ -48,7 +48,7 @@ CardContainer.propTypes = {
     PropTypes.shape({
       content: PropTypes.string.isRequired,
       votes: PropTypes.number.isRequired,
-      _id: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
     })
   ),

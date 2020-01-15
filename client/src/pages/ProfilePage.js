@@ -5,7 +5,7 @@ import Header from '../components/Header'
 import Input from '../components/styled/Input'
 import Button from '../components/styled/Button'
 import Card from '../components/styled/Card'
-import { updateUser, getUser } from '../api/users/users'
+import { updateUser, getUser } from '../api/users'
 
 const Main = styled.main`
   background-color: var(--bg-color);

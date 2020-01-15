@@ -13,15 +13,15 @@ router.post('/create', (req, res) => {
   const newBoard = ({
     title,
     team,
-    cards: [],
   })
   boards.insert(newBoard).run(connection).then(board => res.json(board)).catch(e => debug(e))
 })
 
 // ** GET - READ(ALL) -- Finds all boards.
 router.get('/', (req, res) => {
-  boards.run(connection).then(boards => {
-    boards.toArray().then(board => res.json(board))
+  boards.changes().run(connection).then(boards => {
+    debug(boards)
+    res.json({ message: 'Got all boards'})
   })
 })
 
@@ -67,6 +67,7 @@ router.post('/:bid/update', (req, res) => {
 })
 
 // ** DELETE - DELETE -- Deletes a board from bid.
+// TODO Delete cards associated with board.
 router.delete('/:bid', (req, res) => {
   const { bid } = req.params
   boards.get(bid).delete().run(connection).then(() => {
@@ -85,8 +86,8 @@ router.post('/:bid/add-card', (req, res) => {
     content: '',
     votes: 0,
   })
-  cards.insert(newCard).run(connection).then(nC => {
-    res.json(nC)
+  cards.insert(newCard).run(connection).then(() => {
+    res.json(newCard)
   })
 })
 

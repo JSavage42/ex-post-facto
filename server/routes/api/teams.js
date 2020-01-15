@@ -11,7 +11,10 @@ const users = r.table('users')
 router.post('/create', (req, res) => {
   const { name } = req.body
   const newTeam = ({ name })
-  teams.insert(newTeam).run(connection).then(team => res.json(team)).catch(e => debug(e))
+  teams.insert(newTeam)
+    .run(connection)
+    .then(team => res.json(team))
+    .catch(e => debug(e))
 })
 
 // ** GET - READ(ALL) -- Finds all teams.

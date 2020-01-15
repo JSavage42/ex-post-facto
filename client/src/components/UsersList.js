@@ -11,8 +11,8 @@ const UsersList = ({ isList, obj }) => (
       <ul>
         {isList ? (
           Object.values(obj).map(value => (
-            <li key={value._id}>
-              <Link to={`/user/${value._id}`} alt={value.name}>
+            <li key={value.id}>
+              <Link to={`/user/${value.id}`} alt={value.name}>
                 {value.name}
               </Link>
             </li>

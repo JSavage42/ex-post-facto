@@ -1,0 +1,46 @@
+2020-01-15T07:37:11.499522000 0.014128s notice: Recursively removing directory /Users/js063531/GitHub/work/ex-post-facto/server/rethinkdb_data/tmp
+2020-01-15T07:37:11.503148000 0.017756s notice: Initializing directory /Users/js063531/GitHub/work/ex-post-facto/server/rethinkdb_data
+2020-01-15T07:37:11.503248000 0.017853s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/Users/js063531/GitHub/work/ex-post-facto/server/rethinkdb_data' did not already exist or is empty.)
+2020-01-15T07:37:11.503284000 0.017889s notice: Running rethinkdb 2.4.0 (CLANG 11.0.0 (clang-1100.0.33.16))...
+2020-01-15T07:37:11.509685000 0.024291s notice: Running on Darwin 19.2.0 x86_64
+2020-01-15T07:37:11.509749000 0.024354s notice: Loading data from directory /Users/js063531/GitHub/work/ex-post-facto/server/rethinkdb_data
+2020-01-15T07:37:11.611832000 0.126434s info: Automatically using cache size of 2111 MB
+2020-01-15T07:37:11.612623000 0.127226s error: TCP socket creation failed for port 29015: Address already in use.
+2020-01-15T07:39:12.062181000 0.016014s notice: Running rethinkdb 2.4.0 (CLANG 11.0.0 (clang-1100.0.33.16))...
+2020-01-15T07:39:12.068748000 0.022577s notice: Running on Darwin 19.2.0 x86_64
+2020-01-15T07:39:12.068803000 0.022632s notice: Loading data from directory /Users/js063531/GitHub/work/ex-post-facto/server/rethinkdb_data
+2020-01-15T07:39:12.102590000 0.056419s info: Automatically using cache size of 2046 MB
+2020-01-15T07:39:12.103510000 0.057338s error: TCP socket creation failed for port 29015: Address already in use.
+2020-01-15T07:39:19.638366000 0.016480s notice: Running rethinkdb 2.4.0 (CLANG 11.0.0 (clang-1100.0.33.16))...
+2020-01-15T07:39:19.645284000 0.023394s notice: Running on Darwin 19.2.0 x86_64
+2020-01-15T07:39:19.645344000 0.023453s notice: Loading data from directory /Users/js063531/GitHub/work/ex-post-facto/server/rethinkdb_data
+2020-01-15T07:39:19.678134000 0.056242s info: Automatically using cache size of 2028 MB
+2020-01-15T07:39:19.678865000 0.056973s notice: Listening for intracluster connections on port 29016
+2020-01-15T07:39:19.680245000 0.058353s notice: Listening for client driver connections on port 28016
+2020-01-15T07:39:19.680285000 0.058393s notice: Listening for administrative HTTP connections on port 8081
+2020-01-15T07:39:19.680290000 0.058397s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2020-01-15T07:39:19.680293000 0.058401s notice: Listening on driver addresses: 127.0.0.1, ::1
+2020-01-15T07:39:19.680297000 0.058405s notice: Listening on http addresses: 127.0.0.1, ::1
+2020-01-15T07:39:19.680302000 0.058409s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2020-01-15T07:39:19.680305000 0.058412s notice: Server ready, "C02XJ4ZXJGH5_5nr" edd1c53a-0f4e-4845-befa-0af155c11d18
+2020-01-15T07:39:42.419091000 22.796642s notice: Server got SIGINT from pid 772, uid 242365166; shutting down...
+2020-01-15T07:39:42.419371000 22.796923s notice: Shutting down client connections...
+2020-01-15T07:39:42.419451000 22.797003s notice: All client connections closed.
+2020-01-15T07:39:42.419456000 22.797007s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2020-01-15T07:39:42.419900000 22.797451s notice: Storage engine shut down.
+2020-01-15T07:39:46.328898000 0.016671s notice: Running rethinkdb 2.4.0 (CLANG 11.0.0 (clang-1100.0.33.16))...
+2020-01-15T07:39:46.335850000 0.023620s notice: Running on Darwin 19.2.0 x86_64
+2020-01-15T07:39:46.335930000 0.023698s notice: Loading data from directory /Users/js063531/GitHub/work/ex-post-facto/server/rethinkdb_data
+2020-01-15T07:39:46.371841000 0.059609s info: Automatically using cache size of 2004 MB
+2020-01-15T07:39:46.375293000 0.063061s notice: Listening for intracluster connections on port 29016
+2020-01-15T07:39:46.376896000 0.064664s notice: Listening for client driver connections on port 28016
+2020-01-15T07:39:46.376939000 0.064707s notice: Listening for administrative HTTP connections on port 8081
+2020-01-15T07:39:46.376944000 0.064712s notice: Listening on cluster addresses: 127.0.0.1, 10.132.16.84, ::1, 2620:1e2:20:4100:c31:77db:cc21:63c2, 2620:1e2:20:4100:6dd5:8907:1097:581b, fe80::1%1, fe80::1068:56ff:fecc:d55f%13, fe80::1068:56ff:fecc:d55f%14, fe80::1406:8286:ed9c:199a%6, fe80::5ecb:a9a1:29a6:b02%17, fe80::669e:351e:5c24:b72a%16, fe80::6a88:ff7a:7f4e:eb5d%15, fe80::aede:48ff:fe00:1122%4, fe80::cae0:330d:96be:ab78%18
+2020-01-15T07:39:46.376949000 0.064717s notice: Listening on driver addresses: 127.0.0.1, 10.132.16.84, ::1, 2620:1e2:20:4100:c31:77db:cc21:63c2, 2620:1e2:20:4100:6dd5:8907:1097:581b, fe80::1%1, fe80::1068:56ff:fecc:d55f%13, fe80::1068:56ff:fecc:d55f%14, fe80::1406:8286:ed9c:199a%6, fe80::5ecb:a9a1:29a6:b02%17, fe80::669e:351e:5c24:b72a%16, fe80::6a88:ff7a:7f4e:eb5d%15, fe80::aede:48ff:fe00:1122%4, fe80::cae0:330d:96be:ab78%18
+2020-01-15T07:39:46.376956000 0.064723s notice: Listening on http addresses: 127.0.0.1, 10.132.16.84, ::1, 2620:1e2:20:4100:c31:77db:cc21:63c2, 2620:1e2:20:4100:6dd5:8907:1097:581b, fe80::1%1, fe80::1068:56ff:fecc:d55f%13, fe80::1068:56ff:fecc:d55f%14, fe80::1406:8286:ed9c:199a%6, fe80::5ecb:a9a1:29a6:b02%17, fe80::669e:351e:5c24:b72a%16, fe80::6a88:ff7a:7f4e:eb5d%15, fe80::aede:48ff:fe00:1122%4, fe80::cae0:330d:96be:ab78%18
+2020-01-15T07:39:46.376959000 0.064726s notice: Server ready, "C02XJ4ZXJGH5_5nr" edd1c53a-0f4e-4845-befa-0af155c11d18
+2020-01-15T07:40:18.436837000 32.123820s notice: Server got SIGINT from pid 772, uid 242365166; shutting down...
+2020-01-15T07:40:18.437015000 32.123997s notice: Shutting down client connections...
+2020-01-15T07:40:18.437107000 32.124090s notice: All client connections closed.
+2020-01-15T07:40:18.437116000 32.124099s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2020-01-15T07:40:18.437514000 32.124497s notice: Storage engine shut down.

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Login from '../components/Login'
-import { login } from '../api/users/users'
+import { login } from '../api/users'
 
 const Main = styled.main`
   background: var(--white-hex);

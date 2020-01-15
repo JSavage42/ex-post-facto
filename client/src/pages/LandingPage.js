@@ -6,8 +6,8 @@ import Container from '../components/styled/Container'
 import BoardsList from '../components/BoardsList'
 import TeamsList from '../components/TeamsList'
 import AdminCard from '../components/AdminCard'
-import { getTeams } from '../api/teams/teams'
-import { getBoards } from '../api/boards/boards'
+import { getTeams } from '../api/teams'
+import { getBoards } from '../api/boards'
 
 const LandingPage = () => {
   const [teamsObj, setTeamsObj] = React.useState({})

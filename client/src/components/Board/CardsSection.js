@@ -146,19 +146,19 @@ const CardsSection = ({
 
 CardsSection.propTypes = {
   wentWellArray: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     votes: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
   }).isRequired),
   needsImproveArray: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     votes: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
   }).isRequired),
   actionItemsArray: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     votes: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,

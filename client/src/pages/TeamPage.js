@@ -8,8 +8,8 @@ import Card from '../components/styled/Card'
 import Main from '../components/styled/Main'
 import Container from '../components/styled/Container'
 import Section from '../components/styled/Section'
-import { getTeam } from '../api/teams/teams'
-import { getBoardFromTid } from '../api/boards/boards'
+import { getTeam } from '../api/teams'
+import { getBoardFromTid, createBoard } from '../api/boards'
 
 const TeamPage = () => {
   const [teamName, setTeamName] = React.useState('')
@@ -31,6 +31,7 @@ const TeamPage = () => {
 
   React.useMemo(() => {
     getBoardFromTid(tid).then(res => {
+      console.log(res)
       setBoardObj(res.data)
     })
   }, [tid])
@@ -57,7 +58,9 @@ const TeamPage = () => {
   const handleCreateBoard = e =>{
     e.preventDefault()
     if (boardName !== '') {
-      console.log(boardName)
+      createBoard(
+
+      )
     } else {
       setBoardError('Please enter a name')
     }
@@ -94,8 +97,8 @@ const TeamPage = () => {
             <ul>
               {isBoardsList ? (
                 Object.values(boardObj).map(value => (
-                  <li key={value._id}>
-                    <Link to={`/board/${value._id}`} alt={value.title}>
+                  <li key={value.id}>
+                    <Link to={`/board/${value.id}`} alt={value.title}>
                       {value.title}
                     </Link>
                   </li>
@@ -110,8 +113,8 @@ const TeamPage = () => {
             <ul>
               {members &&
                 Object.values(members).map(member => (
-                  <li key={member._id}>
-                    <Link to={`/user/${member._id}`} alt={member.name}>
+                  <li key={member.id}>
+                    <Link to={`/user/${member.id}`} alt={member.name}>
                       {member.name}
                     </Link>
                   </li>
@@ -132,13 +135,11 @@ const TeamPage = () => {
                 type="text"
                 value={username}
                 onChange={onUsernameChange}
-                disabled
               />
               <Button
                 type="submit"
                 title="Add"
                 variant="emphasis"
-                disabled
               />
             </form>
           </Card>

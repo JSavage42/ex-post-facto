@@ -6,10 +6,8 @@ const Button = ({
   handleClick,
   title,
   type,
-  disabled
 }) => (
   <button
-    disabled={disabled}
     type={type}
     onClick={handleClick}
     className={`button ${variant}`}

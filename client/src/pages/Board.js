@@ -4,10 +4,8 @@ import { useLocation, Link } from 'react-router-dom'
 // import XLSX from 'xlsx'
 
 import CardsSection from '../components/Board/CardsSection'
-import Header from '../components/Header'
-import Input from '../components/styled/Input'
 import { ReactComponent as Icon } from '../icons/excel.svg'
-import { getCardsOfType, getBoard, addCard, updateCardContent, updateBoard } from '../api/boards/boards'
+import { getCardsOfType, getBoard, addCard, updateCardContent } from '../api/boards'
 
 const Main = styled.main`
   background-color: var(--bg-color);
@@ -18,8 +16,6 @@ const Main = styled.main`
 `
 
 const BoardTitle = styled.div`
-  /* background: var(--green-hex); */
-  /* box-shadow: 2px 2px 10px var(--black-hex); */
   border-bottom: 1px solid var(--red-hex);
   color: var(--black-hex);
   display: flex;
@@ -61,24 +57,23 @@ const Board = () => {
   const location = useLocation()
   const bid = location.pathname.substring(7)
 
-  React.useMemo(() => {
+  React.useEffect(() => {
     getBoard(bid).then(res => {
-      console.log(res)
       setTitle(res.data.title)
       setIsLoading(res)
     })
   }, [bid])
-  React.useMemo(() => {
+  React.useEffect(() => {
     getCardsOfType(bid, 'went-well').then(res => {
       setWentWellArray(res.data)
     })
   }, [bid])
-  React.useMemo(() => {
+  React.useEffect(() => {
     getCardsOfType(bid, 'needs-improved').then(res => {
       setNeedsImproveArray(res.data)
     })
   }, [bid])
-  React.useMemo(() => {
+  React.useEffect(() => {
     getCardsOfType(bid, 'action-items').then(res => {
       setActionItemsArray(res.data)
     })
@@ -88,14 +83,14 @@ const Board = () => {
     addCard(bid, type)
   }
 
-  const updateContent = (bid, _id, content) => {
-    const data = { _id, content }
-    updateCardContent(bid, data)
+  const updateContent = (id, content) => {
+    const data = { id, content }
+    updateCardContent(data)
   }
 
-  const plusOne = (bid, _id, votes) => {
-    const data = { _id, votes }
-    updateCardContent(bid, data)
+  const plusOne = (id, votes) => {
+    const data = { votes }
+    updateCardContent(id, data)
   }
 
   const handleExportFile = () => {
