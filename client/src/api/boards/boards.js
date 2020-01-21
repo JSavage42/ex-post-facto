@@ -1,7 +1,6 @@
 import axios from 'axios'
-import { GET, POST, HEADERS } from '../constants'
-
-const LOCAL_URL = `${process.env.MONGO_URL}:${process.env.MONGO_PORT}/api/boards`
+import { GET, POST, HEADERS, DB } from '../constants'
+const LOCAL_URL = `${DB.url}:${DB.port}/api/boards`
 
 export const getBoards = () => (
   axios({
@@ -58,6 +57,15 @@ export const getBoardFromTid = (tid) => (
 export const updateCardContent = (bid, data) => (
   axios({
     url: `${LOCAL_URL}/${bid}/${data._id}/update`,
+    method: POST,
+    headers: HEADERS,
+    data,
+  })
+)
+
+export const createBoard = data => (
+  axios({
+    url: `${LOCAL_URL}/create`,
     method: POST,
     headers: HEADERS,
     data,

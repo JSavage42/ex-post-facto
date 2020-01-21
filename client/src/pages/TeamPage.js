@@ -9,7 +9,7 @@ import Main from '../components/styled/Main'
 import Container from '../components/styled/Container'
 import Section from '../components/styled/Section'
 import { getTeam } from '../api/teams/teams'
-import { getBoardFromTid } from '../api/boards/boards'
+import { getBoardFromTid, createBoard } from '../api/boards/boards'
 
 const TeamPage = () => {
   const [teamName, setTeamName] = React.useState('')
@@ -57,7 +57,15 @@ const TeamPage = () => {
   const handleCreateBoard = e =>{
     e.preventDefault()
     if (boardName !== '') {
-      console.log(boardName)
+      const data = {
+        title: boardName,
+        team: tid,
+      }
+      createBoard(data).then(res => {
+        getBoardFromTid(tid).then(res => {
+          setBoardObj(res.data)
+        })
+      })
     } else {
       setBoardError('Please enter a name')
     }

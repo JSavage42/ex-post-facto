@@ -4,3 +4,7 @@ export const DELETE = 'DELETE'
 export const HEADERS = {
   'Accept': 'application/json'
 }
+export const DB = {
+  url: process.env.MONGO_URL || 'http://localhost',
+  port: process.env.MONGO_PORT || 5000
+}

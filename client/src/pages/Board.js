@@ -4,10 +4,8 @@ import { useLocation, Link } from 'react-router-dom'
 // import XLSX from 'xlsx'
 
 import CardsSection from '../components/Board/CardsSection'
-import Header from '../components/Header'
-import Input from '../components/styled/Input'
 import { ReactComponent as Icon } from '../icons/excel.svg'
-import { getCardsOfType, getBoard, addCard, updateCardContent, updateBoard } from '../api/boards/boards'
+import { getCardsOfType, getBoard, addCard, updateCardContent } from '../api/boards/boards'
 
 const Main = styled.main`
   background-color: var(--bg-color);

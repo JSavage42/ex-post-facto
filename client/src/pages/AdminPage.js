@@ -6,7 +6,7 @@ import Section from '../components/styled/Section'
 import CreateTeamCard from '../components/CreateTeamCard'
 import CreateBoardCard from '../components/CreateBoardCard'
 import UsersList from '../components/UsersList'
-import { getTeams } from '../api/teams/teams'
+import { getTeams, createTeam } from '../api/teams/teams'
 import { getUsers } from '../api/users/users'
 
 const AdminPage = () => {
@@ -26,7 +26,6 @@ const AdminPage = () => {
 
   React.useMemo(() => {
     getUsers().then(res => {
-      console.log(res.data)
       setUsersObj(res.data)
     })
   }, [])
@@ -49,7 +48,7 @@ const AdminPage = () => {
   function handleCreateTeam(e) {
     e.preventDefault()
     if (teamName !== '') {
-      console.log(teamName)
+      createTeam(teamName)
     } else {
       setTeamError('Please enter a name')
     }
