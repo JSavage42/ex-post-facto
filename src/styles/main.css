@@ -1,0 +1,142 @@
+:root {
+  /** Fonts */
+  --fancy-font: 800 8rem
+      "https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap",
+    serif;
+  --header-font: 800 4rem
+      "https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap",
+    serif;
+  --medium-header-font: 800 3.5rem
+      "https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap",
+    serif;
+  --small-header-font: 800 2.5rem
+      "https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap",
+    serif;
+
+  /** Color Theme Swatches in Hex */
+  --black: #000;
+  --white: #ececf0;
+  --dark-blue: #10162e;
+  --med-dark-blue: #090057;
+  --med-blue: #192192;
+  --light-blue: #1a1aa7;
+  --gold: #866e30;
+  --yellow: #ce9b19;
+  --grey: #aaa;
+
+  /** Color Theme Swatches in RGBA */
+  --black-rgba: rgba(0, 0, 0, 1);
+  --white-rgba: rgba(236, 236, 240, 1);
+  --dark-blue-rgba: rgba(16, 22, 46, 1);
+  --med-dark-blue-rgba: rgba(9, 0, 87, 1);
+  --med-blue-rgba: rgba(25, 33, 146, 1);
+  --light-blue-rgba: rgba(26, 26, 167, 1);
+  --gold-rgba: rgba(134, 110, 48, 1);
+  --yellow-rgba: rgba(206, 155, 25, 1);
+  --grey-rgba: rgba(170, 170, 170, 1);
+
+  --db-bs: rgba(0, 0, 0, 0.7);
+  --db-bs-lighter: rgba(0, 0, 0, 0.3);
+  --bg-color: var(--white);
+  --h2-color: var(--gold);
+  --h3-color: var(--yellow);
+  --button-bg-color: var(--gold);
+  --button-bg-color-hover: var(--dark-blue);
+  --button-font-color: var(--white);
+
+  /** Header Variables  */
+  --header-bg-color: var(--dark-blue);
+  --header-font-color: var(--yellow);
+  --subheading-font-color: var(--dark-blue);
+
+  /** Card Variables * */
+  --card-bg-color: var(--white);
+  --card-font-color: var(--dark-blue);
+  --card-heading-color: var(--yellow);
+  --card-link-color: var(--dark-blue);
+  --card-link-visited-color: var(--dark-blue);
+  --card-link-hover-color: var(--gold);
+
+  /** Board Variables */
+  --board-title-bg: var(--yellow);
+  --board-title-ds: var(--db-bs);
+  /*? Board Section */
+  --board-section-heading-color: var(--dark-blue);
+  --board-section-heading-font: var(--small-header-font);
+  --board-section-button-bg-color: var(--button-bg-color);
+  --board-section-button-font-color: var(--button-font-color);
+  --board-section-button-bg-color-hover: var(--button-bg-color-hover);
+  --board-section-border-color: var(--dark-blue);
+  /*? Board Section Card */
+  --board-card-bs-color: var(--black);
+  --board-card-bs: 0rem 0rem 0.5rem var(--board-card-bs-color);
+  --board-card-bs-hover: 2px 2px 15px 5px var(--board-card-bs-color);
+  --board-card-plus-one-button-color: var(--white);
+  --board-card-plus-one-button-active-bg-color: var(--yellow);
+  --board-card-plus-one-button-active-color: var(--white);
+  --board-card-went-well-bg-color: var(--med-dark-blue);
+  --board-card-button-bg-color-hover: var(--light-blue);
+  --board-card-needs-improved-bg-color: var(--yellow);
+  --board-card-action-items-bg-color: var(--gold);
+  --board-card-header-font-color: var(--white);
+  --board-card-button-active-bg-color: var(--white);
+  --board-card-content-bg-color: var(--yellow);
+  --board-card-content-font-color: var(--white);
+  --board-card-content-font-size: 1.75rem;
+}
+
+body {
+  font-weight: 500;
+}
+
+.-shown {
+  display: inline-block;
+}
+
+.-hidden {
+  display: none;
+}
+
+.icon {
+  background: transparent;
+}
+
+.button {
+  border: none;
+  border-radius: 1.75rem;
+  display: inline;
+  font-size: 2rem;
+  margin: 0.45rem;
+  padding: 0.75rem;
+}
+
+.button.emphasis {
+  background: var(--button-bg-color);
+  color: var(--button-font-color);
+}
+
+.button.emphasis:hover {
+  background: var(--button-bg-color-hover);
+}
+
+.button.reset:hover {
+  background: var(--button-bg-color-hover);
+}
+
+.button.neutral {
+  background: var(--white);
+  color: var(--green);
+}
+
+.button.neutral:hover {
+  background: var(--white);
+  color: var(--green);
+}
+
+fieldset {
+  border: none;
+}
+
+legend {
+  font-size: 1.6rem;
+}
