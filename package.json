@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
+  "homepage": "http://expostfacto.dev",
   "description": "Agile Retro Board Tool",
   "repository": {
     "type": "git",
