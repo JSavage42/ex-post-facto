@@ -1,0 +1,63 @@
+{
+  "name": "ex-post-facto",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "homepage": "http://expostfacto.dev",
+  "description": "Agile Retro Board Tool",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jsavage42/ex-post-facto.git"
+  },
+  "keywords": [
+    "agile",
+    "retro",
+    "scrum",
+    "tools",
+    "teams"
+  ],
+  "author": "Jason A. Savage",
+  "scripts": {
+    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "lint:js": "eslint .",
+    "lint:css": "stylelint .",
+    "test": "npm run lint:js && npm run lint:css",
+    "eject": "react-scripts eject"
+  },
+  "bugs": {
+    "url": "https://github.com/jsavage42/ex-post-facto/issues"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "node-sass": "^4.13.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0",
+    "styled-components": "^4.4.1",
+    "xlsx": "^0.15.4"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^9.4.0",
+    "eslint": "^6.7.1",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "jsdom-global": "^3.0.2",
+    "stylelint": "^13.0.0",
+    "stylelint-config-standard": "^19.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

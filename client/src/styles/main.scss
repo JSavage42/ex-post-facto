@@ -1,0 +1,154 @@
+:root {
+  /** Fonts */
+  --fancy-font: 800 8rem adobe-garamond-pro, serif;
+  --header-font: 800 4rem adobe-garamond-pro, serif;
+  --medium-header-font: 800 3.5rem adobe-garamond-pro, serif;
+  --small-header-font: 800 2.5rem adobe-garamond-pro, serif;
+
+  /** Color Theme Swatches in Hex */
+  --black: hsl(0, 0%, 0%);
+  --dark-blue: hsl(201, 25%, 15%);
+  --med-blue: hsl(201, 50%, 30%);
+  --light-blue: hsl(201, 75%, 38%);
+  --yellow: hsl(43, 100%, 60%);
+  --red: hsl(0, 100%, 60%);
+  --success: hsl(100, 94%, 45%);
+
+  --shadow: hsl(201, 25%, 0%) 2px 2px 2px;
+  --reflection: hsl(201, 25%, 30%) -2px -2px 4px;
+  --shadow-hov: hsl(201, 25%, 0%) 4px 4px 8px;
+  --reflection-hov: hsl(201, 25%, 15%) -2px -2px 4px;
+
+  --bs: var(--shadow), var(--reflection);
+  --bs-hov: var(--shadow-hov), var(--reflection-hov);
+  --bs-inset: inset var(--shadow), inset var(--reflection);
+  --bs-inset-hov: inset var(--shadow-hov), inset var(--reflection-hov);
+
+  --card-box-shadow: var(--bs);
+  --card-box-shadow-hover: var(--bs-hov);
+  --bg-color: var(--dark-blue);
+  --h2-color: var(--yellow);
+  --h3-color: var(--yellow);
+  --button-bg-color: var(--dark-blue);
+  --button-bg-color-hover: var(--dark-blue);
+  --button-font-color: var(--yellow);
+
+  /** Header Variables  */
+  --header-bg-color: var(--bg-color);
+  --header-font-color: var(--yellow);
+  --subheading-font-color: var(--yellow);
+
+  /** Card Variables * */
+  --card-bg-color: var(--bg-color);
+  --card-font-color: var(--yellow);
+  --card-heading-color: var(--yellow);
+  --card-heading-bg-color: var(--med-blue);
+  --card-link-color: var(--yellow);
+  --card-link-visited-color: var(--yellow);
+  --card-link-hover-color: var(--yellow);
+
+  /** Board Variables */
+  --subheading-bg: var(--med-blue);
+  --subheading-bs: var(--shadow);
+  /*? Board Section */
+  --board-section-heading-color: var(--yellow);
+  --board-section-heading-font: var(--small-header-font);
+  --board-section-button-bg-color: var(--button-bg-color);
+  --board-section-button-font-color: var(--button-font-color);
+  --board-section-button-bg-color-hover: var(--button-bg-color-hover);
+  --board-section-border-color: var(--yellow);
+  /*? Board Section Card */
+  --board-card-bs: var(--bs);
+  --board-card-bs-hover: var(--bs-hov);
+  --board-card-plus-one-button-color: var(--yellow);
+  --board-card-plus-one-button-active-bg-color: var(--yellow);
+  --board-card-plus-one-button-active-color: var(--yellow);
+  --board-card-went-well-button-color: var(--success);
+  --board-card-needs-improved-button-color: var(--yellow);
+  --board-card-action-items-button-color: var(--red);
+  --board-card-header-font-color: var(--yellow);
+  --board-card-button-active-bg-color: var(--yellow);
+  --board-card-content-bg-color: var(--yellow);
+  --board-card-content-font-color: var(--yellow);
+  --board-card-content-font-size: 1.75rem;
+}
+
+html {
+  font-size: 10px;
+  height: 100%;
+}
+
+body {
+  background: var(--bg-color);
+  height: 100vh;
+  font-weight: 500;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.-shown {
+  display: inline-block;
+}
+
+.-hidden {
+  display: none;
+}
+
+.icon {
+  background: transparent;
+}
+
+.button {
+  border: none;
+  border-radius: 1.75rem;
+  display: inline;
+  font-size: 2rem;
+  margin: 0.45rem;
+  padding: 0.75rem;
+  color: var(--button-font-color);
+
+  &.emphasis {
+    background: var(--button-bg-color);
+    box-shadow: var(--bs);
+    border: none;
+    margin: 1rem 0;
+  }
+  &.ghost {
+    background: var(--button-bg-color);
+    box-shadow: var(--bs-inset);
+    border: none;
+    margin: 1rem 0;
+
+    &:hover {
+      box-shadow: var(--bs-inset-hov);
+    }
+  }
+}
+
+.button.emphasis:active {
+  box-shadow: var(--bs-inset);
+}
+
+.button.reset:hover {
+  background: var(--button-bg-color-hover);
+}
+
+.button.neutral {
+  background: var(--bg-color);
+  color: var(--light-blue);
+  box-shadow: var(--bs);
+}
+
+.button.emphasis:hover,
+.button.neutral:hover {
+  box-shadow: var(--bs-hov);
+}
+
+fieldset {
+  border: none;
+}
+
+legend {
+  font-size: 1.6rem;
+}

@@ -5,7 +5,9 @@
 /coverage
 
 # production
-/build
+/client/build
+
+/data
 
 # misc
 .DS_Store
@@ -22,10 +24,13 @@ yarn-debug.log*
 yarn-error.log*
 
 /node_modules
+server/node_modules
+client/node_modules
 
 # Mongo ReplicaSet
-/src/server/db/rs*/
-/src/server/db/var
-/src/server/db/rs*.conf
+server/db/rs*/
+server/db/var
+server/db/rs*.conf
 
 .vscode/
+client/build/robots.txt
